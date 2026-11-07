@@ -6,6 +6,11 @@ interface Props {
 const { emoji = "🐟" } = Astro.props;
 ---
 
-<button class="fish" type="button" aria-label="girar o peixe" data-fish>
-  <span data-fish-emoji>{emoji}</span>
+<button
+  class="mt-7 inline-grid size-14 place-items-center text-[28px] leading-none transition-transform duration-[220ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:rotate-[-8deg] hover:scale-[1.08] active:rotate-[-4deg] active:scale-[0.94]"
+  type="button"
+  aria-label="girar o peixe"
+  data-fish
+>
+  <span class="inline-block data-[spinning=true]:animate-fish-spin" data-fish-emoji>{emoji}</span>
 </button>

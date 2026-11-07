@@ -16,11 +16,15 @@ const {
 } = Astro.props;
 ---
 
-<dialog class="track-dialog" data-track-dialog aria-labelledby="credit-title">
-  <div class="dialog-top">
-    <p class="now-playing-label">créditos da música</p>
+<dialog
+  class="dialog-pop relative m-auto max-h-[calc(100dvh_-_2rem)] w-[calc(100%_-_2rem)] max-w-[390px] rounded-[18px] border-[1.5px] border-line bg-paper px-[22px] pt-[22px] pb-6 text-left text-ink [font:inherit]"
+  data-track-dialog
+  aria-labelledby="credit-title"
+>
+  <div class="flex items-start justify-between gap-3">
+    <p class="m-0 text-[13px] text-muted">créditos da música</p>
     <button
-      class="close-dialog"
+      class="-mt-2 -mr-2 grid size-10 place-items-center rounded-full font-[Arial,sans-serif] text-[28px] leading-none transition-[background-color,color,transform] duration-150 hover:rotate-90 hover:bg-ink hover:text-paper hover:outline-none focus-visible:rotate-90 focus-visible:bg-ink focus-visible:text-paper focus-visible:outline-none active:rotate-90 active:scale-90"
       type="button"
       aria-label="Fechar créditos"
       data-close-dialog
@@ -28,20 +32,26 @@ const {
       ×
     </button>
   </div>
-  <h2 id="credit-title" data-credit-title>{title}</h2>
-  <p class="credit-artist" data-credit-artist>{artist}</p>
-  <dl class="credit-list">
-    <div>
-      <dt>autor / artista</dt>
-      <dd data-credit-author>{author}</dd>
+  <h2
+    id="credit-title"
+    class="mt-2 mb-0 font-display text-[23px] tracking-[-0.05em]"
+    data-credit-title
+  >
+    {title}
+  </h2>
+  <p class="mt-1 mb-[18px] text-muted" data-credit-artist>{artist}</p>
+  <dl class="m-0 grid gap-3">
+    <div class="grid gap-0.5">
+      <dt class="text-[13px] text-muted">autor / artista</dt>
+      <dd class="m-0 text-[17px]" data-credit-author>{author}</dd>
     </div>
-    <div>
-      <dt>uso</dt>
-      <dd data-credit-copyright>{copyright}</dd>
+    <div class="grid gap-0.5">
+      <dt class="text-[13px] text-muted">uso</dt>
+      <dd class="m-0 text-[17px]" data-credit-copyright>{copyright}</dd>
     </div>
   </dl>
   <a
-    class="source-link"
+    class="mt-[18px] inline-block underline underline-offset-[3px]"
     data-credit-source
     href={source}
     hidden={!source}

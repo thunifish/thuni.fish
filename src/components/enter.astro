@@ -1,12 +1,16 @@
 <div
-  class="enter-screen"
+  class="fixed inset-0 z-10 grid place-items-center bg-paper/[0.94] backdrop-blur-[8px] transition-opacity duration-[400ms] ease-[ease] [&.is-hidden]:pointer-events-none [&.is-hidden]:opacity-0"
   data-enter-screen
   role="dialog"
   aria-modal="true"
   aria-labelledby="enter-title"
 >
-  <button class="enter-button" type="button" data-enter>
-    <span class="enter-mark" aria-hidden="true">✦</span>
-    <small id="enter-title">click!</small>
+  <button
+    class="grid justify-items-center gap-2.5 p-5 transition-transform duration-[180ms] hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none active:-translate-y-px active:scale-[0.98]"
+    type="button"
+    data-enter
+  >
+    <span class="font-[Arial,sans-serif] text-[52px] leading-none" aria-hidden="true">✦</span>
+    <small id="enter-title" class="font-display text-lg tracking-[-0.04em]">click!</small>
   </button>
 </div>

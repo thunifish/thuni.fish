@@ -36,7 +36,6 @@ function init() {
   );
   const enterButton = document.querySelector<HTMLButtonElement>("[data-enter]");
   const main = document.querySelector<HTMLElement>("[data-main]");
-  const portrait = document.querySelector<HTMLElement>("[data-portrait]");
   const avatar = document.querySelector<HTMLImageElement>("[data-avatar]");
   const player = document.querySelector<HTMLElement>("[data-player]");
   const playerStatus = document.querySelector<HTMLElement>(
@@ -454,7 +453,7 @@ function init() {
     }
 
     dialogClosing = false;
-    dialog!.classList.remove("is-closing");
+    dialog!.removeAttribute("data-closing");
 
     if (!dialog!.open) dialog!.showModal();
   }
@@ -468,10 +467,10 @@ function init() {
     }
 
     dialogClosing = true;
-    dialog!.classList.add("is-closing");
+    dialog!.dataset.closing = "true";
 
     dialogCloseTimer = window.setTimeout(() => {
-      dialog!.classList.remove("is-closing");
+      dialog!.removeAttribute("data-closing");
       dialog!.close();
       dialogClosing = false;
       dialogCloseTimer = null;
@@ -483,7 +482,7 @@ function init() {
       window.clearTimeout(dialogCloseTimer);
       dialogCloseTimer = null;
     }
-    dialog.classList.remove("is-closing");
+    dialog.removeAttribute("data-closing");
     dialogClosing = false;
   });
 
@@ -501,13 +500,13 @@ function init() {
   });
 
   fishButton.addEventListener("click", () => {
-    fishEmoji.classList.remove("is-spinning");
+    fishEmoji.removeAttribute("data-spinning");
     void fishEmoji.offsetWidth;
-    fishEmoji.classList.add("is-spinning");
+    fishEmoji.dataset.spinning = "true";
   });
 
   avatar?.addEventListener("error", () => {
-    portrait?.classList.add("is-broken");
+    avatar.hidden = true;
   });
 
   if ("mediaSession" in navigator) {

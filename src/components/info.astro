@@ -3,7 +3,10 @@ import Card from "@/components/card.astro";
 import { INFO_CARDS } from "@/data/info";
 ---
 
-<section class="info-grid" aria-label="informações pessoais">
+<section
+  class="mt-[34px] grid grid-cols-2 gap-x-[18px] gap-y-[26px] text-left max-[400px]:gap-x-3.5 max-[400px]:gap-y-[22px] desktop:mt-12 desktop:gap-x-12 desktop:gap-y-9"
+  aria-label="informações pessoais"
+>
   {
     INFO_CARDS.map((card) => (
       <Card {...card} />
