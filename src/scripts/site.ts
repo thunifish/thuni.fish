@@ -1,4 +1,4 @@
-import avatarUrl from "../assets/avatar.jpg?url";
+import avatarUrl from "../assets/avatar.png?url";
 
 type Track = {
   file: string;

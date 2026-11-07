@@ -8,12 +8,9 @@
   --color-muted: #777777;
   --color-soft: #eeeeec;
   --color-line: #191919;
-
   --font-sans: "Comic Sans MS", Arial, sans-serif;
   --font-display: "Sniglet", sans-serif;
-
   --breakpoint-desktop: 780px;
-
   --animate-equalizer: equalizer-bounce 0.85s ease-in-out infinite alternate;
   --animate-fish-spin: fish-spin 0.5s ease;
 }
@@ -147,19 +144,15 @@
   &[open] {
     animation: dialog-in 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   }
-
   &[data-closing="true"] {
     animation: dialog-out 0.15s ease-in forwards;
   }
-
   &::backdrop {
     background: rgb(18 18 18 / 28%);
   }
-
   &[open]::backdrop {
     animation: backdrop-in 0.2s ease;
   }
-
   &[data-closing="true"]::backdrop {
     animation: backdrop-out 0.15s ease-in forwards;
   }
@@ -169,7 +162,6 @@
   from {
     transform: scaleY(0.3);
   }
-
   to {
     transform: scaleY(1);
   }
