@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import type { InfoCardData } from "@/data/info";
 
 type Props = InfoCardData;
@@ -26,12 +27,12 @@ const { title, face, lead, text, thumbs = [] } = Astro.props;
     thumbs.length > 0 && (
       <div class="thumb-row">
         {thumbs.map((thumb) => (
-          <img
+          <Image
             class="thumb-image"
             src={thumb.src}
             alt={thumb.alt ?? ""}
-            width="52"
-            height="52"
+            width={104}
+            height={104}
             loading="lazy"
           />
         ))}

@@ -1,3 +1,5 @@
+import avatarUrl from "../assets/avatar.jpg?url";
+
 type Track = {
   file: string;
   title?: string;
@@ -185,7 +187,7 @@ function init() {
       artist: next.artist || FALLBACK_ARTIST,
       album: next.author || "thuni.fish",
       artwork: [
-        { src: "/avatar.jpg", sizes: "300x300", type: "image/jpeg" },
+        { src: avatarUrl, sizes: "460x460", type: "image/jpeg" },
       ],
     });
   }

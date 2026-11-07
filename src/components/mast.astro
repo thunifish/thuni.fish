@@ -1,14 +1,17 @@
 ---
+import { Image } from "astro:assets";
+import avatar from "@/assets/avatar.jpg";
 import Links from "@/components/links.astro";
 ---
 
 <div class="mast">
-  <img
-    src="/avatar.jpg"
+  <Image
+    src={avatar}
     alt="avatar do thom"
     class="avatar"
-    width="300"
-    height="300"
+    width={460}
+    height={460}
+    loading="eager"
     data-avatar
   />
   <Links />

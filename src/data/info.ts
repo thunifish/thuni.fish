@@ -17,8 +17,8 @@ export const INFO_CARDS: InfoCardData[] = [
     face: "(๑>◡<๑)",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.",
     thumbs: [
-      { src: "https://placehold.co/600x400" },
-      { src: "https://placehold.co/600x400" },
+      { src: "https://placehold.co/600x400/png" },
+      { src: "https://placehold.co/600x400/png" },
     ],
   },
   {
@@ -26,24 +26,24 @@ export const INFO_CARDS: InfoCardData[] = [
     face: "(− ᴗ −)",
     text: "Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.",
     thumbs: [
-      { src: "https://placehold.co/600x400" },
-      { src: "https://placehold.co/600x400" },
+      { src: "https://placehold.co/600x400/png" },
+      { src: "https://placehold.co/600x400/png" },
     ],
   },
   {
     title: "Dolor!",
     text: "Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
     thumbs: [
-      { src: "https://placehold.co/600x400" },
-      { src: "https://placehold.co/600x400" },
+      { src: "https://placehold.co/600x400/png" },
+      { src: "https://placehold.co/600x400/png" },
     ],
   },
   {
     title: "Amet!",
     text: "Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam.",
     thumbs: [
-      { src: "https://placehold.co/600x400" },
-      { src: "https://placehold.co/600x400" },
+      { src: "https://placehold.co/600x400/png" },
+      { src: "https://placehold.co/600x400/png" },
     ],
   },
   {
