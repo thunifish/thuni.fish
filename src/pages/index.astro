@@ -15,7 +15,6 @@ import { LINKS } from "@/data/links";
   <main class="container" data-main aria-hidden="true" inert>
     <section class="hero" aria-label="perfil do thom">
       <div class="mast">
-        <div class="portrait-frame" data-portrait>
           <img
             src="/avatar.jpg"
             alt="avatar do thom"
@@ -24,15 +23,8 @@ import { LINKS } from "@/data/links";
             height="300"
             data-avatar
           />
-          <span class="avatar-fallback">
-            thom
-            <br />
-            :3
-          </span>
-        </div>
-
         <section class="links-section" aria-labelledby="links-title">
-          <h2 id="links-title">my links!</h2>
+          <h2 id="links-title">meus links!</h2>
           <nav class="links" aria-label="redes sociais">
             {
               LINKS.map((link) => (
@@ -70,7 +62,8 @@ import { LINKS } from "@/data/links";
 
         <div class="hero-side">
           <section class="now-playing" aria-live="polite" aria-label="Música a tocar">
-            <p class="track-quote">tocando agora...</p>
+           <p class="track-quote"><Icon style=" align-items: center; vertical-align: middle;
+"name="andrsrxn:music-notes" /> tocando agora...</p>
             <button
               class="track-info-button"
               type="button"
@@ -92,13 +85,8 @@ import { LINKS } from "@/data/links";
               aria-label="Continuar música"
               title="Continuar música"
             >
-              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-                <rect x="6" y="4" width="4" height="16" rx="1"></rect>
-                <rect x="14" y="4" width="4" height="16" rx="1"></rect>
-              </svg>
-              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-                <path d="M8 5v14l11-7z"></path>
-              </svg>
+              <Icon name="andrsrxn:pause" class="icon-pause" />
+              <Icon name="andrsrxn:play" class="icon-play" /> 
             </button>
           </section>
         </div>
