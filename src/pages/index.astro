@@ -5,6 +5,7 @@ import Mast from "@/components/mast.astro";
 import Intro from "@/components/intro.astro";
 import Player from "@/components/player.astro";
 import Info from "@/components/info.astro";
+import Links from "@/components/links.astro";
 import Fish from "@/components/fish.astro";
 import Footer from "@/components/footer.astro";
 import Dialog from "@/components/dialog.astro";
@@ -25,6 +26,9 @@ import Dialog from "@/components/dialog.astro";
       <Mast />
       <div class="flex w-full flex-col items-center gap-3 desktop:items-stretch desktop:gap-7 desktop:pt-2.5">
         <Intro />
+        <div class="flex justify-center desktop:hidden">
+          <Links id="links-title-mobile" />
+        </div>
         <Player />
       </div>
     </section>
