@@ -1,5 +1,16 @@
+import type { ImageMetadata } from "astro";
+
+import t1 from "@/assets/thumbs/hanako.jpg";
+import t2 from "@/assets/thumbs/kaworu.jpg";
+import t3 from "@/assets/thumbs/basil.jpg";
+import t4 from "@/assets/thumbs/miyano.jpg";
+import t5 from "@/assets/thumbs/mafuyu.jpg";
+import t6 from "@/assets/thumbs/yoshiki.jpg";
+import t7 from "@/assets/thumbs/hirose.jpg";
+import t8 from "@/assets/thumbs/ranpo.jpg";
+
 export type InfoThumb = {
-  src: string;
+  src: ImageMetadata;
   alt?: string;
 };
 
@@ -17,8 +28,8 @@ export const INFO_CARDS: InfoCardData[] = [
     face: "(๑>◡<๑)",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.",
     thumbs: [
-      { src: "https://placehold.co/600x400/png" },
-      { src: "https://placehold.co/600x400/png" },
+      { src: t1, alt: "Hanako-Kun" },
+      { src: t2, alt: "Kaworu Nagisa" },
     ],
   },
   {
@@ -26,24 +37,24 @@ export const INFO_CARDS: InfoCardData[] = [
     face: "(− ᴗ −)",
     text: "Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.",
     thumbs: [
-      { src: "https://placehold.co/600x400/png" },
-      { src: "https://placehold.co/600x400/png" },
+      { src: t3, alt: "Basil" },
+      { src: t4, alt: "Miyano" },
     ],
   },
   {
     title: "Dolor!",
     text: "Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
     thumbs: [
-      { src: "https://placehold.co/600x400/png" },
-      { src: "https://placehold.co/600x400/png" },
+      { src: t5, alt: "Mafuyu" },
+      { src: t6, alt: "Yoshiki" },
     ],
   },
   {
     title: "Amet!",
     text: "Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam.",
     thumbs: [
-      { src: "https://placehold.co/600x400/png" },
-      { src: "https://placehold.co/600x400/png" },
+      { src: t7, alt: "Hirose" },
+      { src: t8, alt: "Ranpo" },
     ],
   },
   {
