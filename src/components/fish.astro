@@ -12,5 +12,10 @@ const { emoji = "🐟" } = Astro.props;
   aria-label="girar o peixe"
   data-fish
 >
-  <span class="inline-block data-[spinning=true]:animate-fish-spin" data-fish-emoji>{emoji}</span>
+  <span
+    class="inline-block data-[spinning=true]:animate-fish-spin"
+    data-fish-emoji
+  >
+    {emoji}
+  </span>
 </button>

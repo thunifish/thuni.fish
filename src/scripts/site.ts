@@ -121,9 +121,8 @@ function init() {
   let dialogClosing = false;
   let dialogCloseTimer: number | null = null;
 
-  const dialogCloseDelay = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches
+  const dialogCloseDelay = window.matchMedia("(prefers-reduced-motion: reduce)")
+    .matches
     ? 0
     : 150;
 
@@ -185,9 +184,7 @@ function init() {
       title: next.title || next.file,
       artist: next.artist || FALLBACK_ARTIST,
       album: next.author || "thuni.fish",
-      artwork: [
-        { src: avatarUrl, sizes: "460x460", type: "image/jpeg" },
-      ],
+      artwork: [{ src: avatarUrl, sizes: "460x460", type: "image/jpeg" }],
     });
   }
 

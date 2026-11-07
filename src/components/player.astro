@@ -10,18 +10,17 @@ import { Icon } from "astro-icon/components";
     data-playing="false"
   >
     <p class="col-span-full m-0 flex items-center gap-[7px] text-[13px] tracking-[0.01em] text-muted">
-      <span class="inline-flex h-3 w-[13px] flex-none items-end gap-0.5" aria-hidden="true">
-        <span
-          class="h-full w-[3px] origin-bottom scale-y-[0.3] rounded-full bg-current group-data-[playing=true]/player:animate-equalizer"
-        ></span>
-        <span
-          class="h-[70%] w-[3px] origin-bottom scale-y-[0.3] rounded-full bg-current [animation-delay:150ms] group-data-[playing=true]/player:animate-equalizer"
-        ></span>
-        <span
-          class="h-[85%] w-[3px] origin-bottom scale-y-[0.3] rounded-full bg-current [animation-delay:300ms] group-data-[playing=true]/player:animate-equalizer"
-        ></span>
+      <span
+        class="inline-flex h-3 w-[13px] flex-none items-end gap-0.5"
+        aria-hidden="true"
+      >
+        <span class="h-full w-[3px] origin-bottom scale-y-[0.3] rounded-full bg-current group-data-[playing=true]/player:animate-equalizer"></span>
+        <span class="h-[70%] w-[3px] origin-bottom scale-y-[0.3] rounded-full bg-current [animation-delay:150ms] group-data-[playing=true]/player:animate-equalizer"></span>
+        <span class="h-[85%] w-[3px] origin-bottom scale-y-[0.3] rounded-full bg-current [animation-delay:300ms] group-data-[playing=true]/player:animate-equalizer"></span>
       </span>
-      <span data-player-status role="status">sem música por enquanto</span>
+      <span data-player-status role="status">
+        sem música por enquanto
+      </span>
     </p>
     <button
       class="group/track grid min-w-0 gap-px p-0 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink disabled:cursor-default"
@@ -32,13 +31,16 @@ import { Icon } from "astro-icon/components";
     >
       <span
         class="overflow-hidden text-[15px] font-bold text-ellipsis whitespace-nowrap group-hover/track:underline group-hover/track:underline-offset-[3px]"
-        data-track-title>sem música por enquanto</span
+        data-track-title
       >
+        sem música por enquanto
+      </span>
       <span
         class="overflow-hidden text-xs text-ellipsis whitespace-nowrap text-muted"
         data-track-artist
-        >adiciona sons em sounds/sounds.json pra começa a ouvi :3</span
       >
+        adiciona sons em sounds/sounds.json pra começa a ouvi :3
+      </span>
     </button>
     <div class="flex items-center gap-2">
       <button
@@ -71,9 +73,12 @@ import { Icon } from "astro-icon/components";
       </button>
     </div>
     <div class="col-span-full grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
-      <span class="min-w-[30px] text-[11px] leading-none text-muted tabular-nums first:text-right" data-time-current
-        >0:00</span
+      <span
+        class="min-w-[30px] text-[11px] leading-none text-muted tabular-nums first:text-right"
+        data-time-current
       >
+        0:00
+      </span>
       <input
         class="player-range"
         type="range"
@@ -86,9 +91,12 @@ import { Icon } from "astro-icon/components";
         aria-label="Progresso da música"
         aria-valuetext="0:00 de 0:00"
       />
-      <span class="min-w-[30px] text-[11px] leading-none text-muted tabular-nums first:text-right" data-time-duration
-        >0:00</span
+      <span
+        class="min-w-[30px] text-[11px] leading-none text-muted tabular-nums first:text-right"
+        data-time-duration
       >
+        0:00
+      </span>
     </div>
     <audio class="hidden" data-audio preload="auto"></audio>
   </section>
