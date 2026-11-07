@@ -1,0 +1,74 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="hero-side">
+  <section
+    class="now-playing"
+    aria-label="Música a tocar"
+    data-player
+    data-playing="false"
+  >
+    <p class="track-quote">
+      <span class="equalizer" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      <span data-player-status role="status">sem música por enquanto</span>
+    </p>
+    <button
+      class="track-info-button"
+      type="button"
+      data-track-info
+      disabled
+      aria-haspopup="dialog"
+    >
+      <span class="track-title" data-track-title>sem música por enquanto</span>
+      <span class="track-artist" data-track-artist
+        >adiciona sons em sounds/sounds.json pra começa a ouvi :3</span
+      >
+    </button>
+    <div class="player-controls">
+      <button
+        class="pause-button"
+        type="button"
+        data-pause
+        disabled
+        data-playing="false"
+        aria-label="Continuar música"
+        title="Continuar música"
+      >
+        <Icon name="andrsrxn:pause" class="icon-pause" />
+        <Icon name="andrsrxn:play" class="icon-play" />
+      </button>
+      <button
+        class="skip-button"
+        type="button"
+        data-next
+        disabled
+        aria-label="Próxima música"
+        title="Próxima música"
+      >
+        <Icon name="andrsrxn:skip-forward" class="icon-skip" />
+      </button>
+    </div>
+    <div class="progress-row">
+      <span class="player-time" data-time-current>0:00</span>
+      <input
+        class="player-progress"
+        type="range"
+        min="0"
+        max="100"
+        step="0.1"
+        value="0"
+        data-progress
+        disabled
+        aria-label="Progresso da música"
+        aria-valuetext="0:00 de 0:00"
+      />
+      <span class="player-time" data-time-duration>0:00</span>
+    </div>
+    <audio data-audio preload="auto"></audio>
+  </section>
+</div>

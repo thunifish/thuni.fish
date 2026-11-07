@@ -1,0 +1,12 @@
+---
+import Card from "@/components/card.astro";
+import { INFO_CARDS } from "@/data/info";
+---
+
+<section class="info-grid" aria-label="informações pessoais">
+  {
+    INFO_CARDS.map((card) => (
+      <Card {...card} />
+    ))
+  }
+</section>

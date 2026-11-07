@@ -1,0 +1,53 @@
+---
+interface Props {
+  title?: string;
+  artist?: string;
+  author?: string;
+  copyright?: string;
+  source?: string;
+}
+
+const {
+  title = "—",
+  artist = "artista misterioso",
+  author = "não informado",
+  copyright = "© todos os direitos pertencem ao autor.",
+  source,
+} = Astro.props;
+---
+
+<dialog class="track-dialog" data-track-dialog aria-labelledby="credit-title">
+  <div class="dialog-top">
+    <p class="now-playing-label">créditos da música</p>
+    <button
+      class="close-dialog"
+      type="button"
+      aria-label="Fechar créditos"
+      data-close-dialog
+    >
+      ×
+    </button>
+  </div>
+  <h2 id="credit-title" data-credit-title>{title}</h2>
+  <p class="credit-artist" data-credit-artist>{artist}</p>
+  <dl class="credit-list">
+    <div>
+      <dt>autor / artista</dt>
+      <dd data-credit-author>{author}</dd>
+    </div>
+    <div>
+      <dt>uso</dt>
+      <dd data-credit-copyright>{copyright}</dd>
+    </div>
+  </dl>
+  <a
+    class="source-link"
+    data-credit-source
+    href={source}
+    hidden={!source}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    ver música original ↗
+  </a>
+</dialog>

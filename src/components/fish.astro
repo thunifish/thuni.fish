@@ -1,0 +1,11 @@
+---
+interface Props {
+  emoji?: string;
+}
+
+const { emoji = "🐟" } = Astro.props;
+---
+
+<button class="fish" type="button" aria-label="girar o peixe" data-fish>
+  <span data-fish-emoji>{emoji}</span>
+</button>

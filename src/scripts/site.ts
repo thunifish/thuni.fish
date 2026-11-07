@@ -7,6 +7,8 @@ type Track = {
   source?: string;
 };
 
+const FALLBACK_ARTIST = "artista misterioso";
+
 function isTrack(value: unknown): value is Track {
   return (
     typeof value === "object" &&
@@ -14,6 +16,16 @@ function isTrack(value: unknown): value is Track {
     "file" in value &&
     typeof (value as { file: unknown }).file === "string"
   );
+}
+
+function formatTime(seconds: number): string {
+  if (!Number.isFinite(seconds) || seconds <= 0) return "0:00";
+
+  const total = Math.floor(seconds);
+  const minutes = Math.floor(total / 60);
+  const rest = total % 60;
+
+  return `${minutes}:${rest.toString().padStart(2, "0")}`;
 }
 
 function init() {
@@ -24,6 +36,11 @@ function init() {
   const main = document.querySelector<HTMLElement>("[data-main]");
   const portrait = document.querySelector<HTMLElement>("[data-portrait]");
   const avatar = document.querySelector<HTMLImageElement>("[data-avatar]");
+  const player = document.querySelector<HTMLElement>("[data-player]");
+  const playerStatus = document.querySelector<HTMLElement>(
+    "[data-player-status]",
+  );
+  const audio = document.querySelector<HTMLAudioElement>("[data-audio]");
   const trackTitle = document.querySelector<HTMLElement>("[data-track-title]");
   const trackArtist = document.querySelector<HTMLElement>(
     "[data-track-artist]",
@@ -31,6 +48,14 @@ function init() {
   const trackInfo =
     document.querySelector<HTMLButtonElement>("[data-track-info]");
   const pauseButton = document.querySelector<HTMLButtonElement>("[data-pause]");
+  const nextButton = document.querySelector<HTMLButtonElement>("[data-next]");
+  const progress = document.querySelector<HTMLInputElement>("[data-progress]");
+  const timeCurrent = document.querySelector<HTMLElement>(
+    "[data-time-current]",
+  );
+  const timeDuration = document.querySelector<HTMLElement>(
+    "[data-time-duration]",
+  );
   const fishButton = document.querySelector<HTMLButtonElement>("[data-fish]");
   const fishEmoji = document.querySelector<HTMLElement>("[data-fish-emoji]");
   const dialog = document.querySelector<HTMLDialogElement>(
@@ -59,10 +84,17 @@ function init() {
     !enterScreen ||
     !enterButton ||
     !main ||
+    !player ||
+    !playerStatus ||
+    !audio ||
     !trackTitle ||
     !trackArtist ||
     !trackInfo ||
     !pauseButton ||
+    !nextButton ||
+    !progress ||
+    !timeCurrent ||
+    !timeDuration ||
     !fishButton ||
     !fishEmoji ||
     !dialog ||
@@ -78,10 +110,21 @@ function init() {
 
   let sounds: Track[] = [];
   let track: Track | null = null;
-  let audio: HTMLAudioElement | null = null;
+  let entering = false;
   let entered = false;
-  let ready: Promise<void> = Promise.resolve();
+  let playing = false;
+  let isSeeking = false;
   let lastPlayedFile: string | null = null;
+  let statusOverride: string | null = null;
+  let ready: Promise<void> = Promise.resolve();
+  let dialogClosing = false;
+  let dialogCloseTimer: number | null = null;
+
+  const dialogCloseDelay = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches
+    ? 0
+    : 150;
 
   enterButton.focus();
 
@@ -97,30 +140,137 @@ function init() {
       sounds = [];
     });
 
-  function setPlaying(playing: boolean) {
-    pauseButton!.dataset.playing = playing ? "true" : "false";
+  function renderStatus() {
+    if (statusOverride) {
+      playerStatus!.textContent = statusOverride;
+      return;
+    }
+
+    if (!track) {
+      playerStatus!.textContent = "sem música por enquanto";
+      return;
+    }
+
+    playerStatus!.textContent = playing ? "tocando agora..." : "em pausa";
+  }
+
+  function syncMediaPosition() {
+    if (!("mediaSession" in navigator)) return;
+    if (!("setPositionState" in navigator.mediaSession)) return;
+
+    const { duration, currentTime, playbackRate } = audio!;
+    if (!Number.isFinite(duration) || duration <= 0) return;
+
+    try {
+      navigator.mediaSession.setPositionState({
+        duration,
+        position: Math.min(Math.max(currentTime, 0), duration),
+        playbackRate,
+      });
+    } catch {
+      // Alguns navegadores rejeitam estados inconsistentes durante o seek.
+    }
+  }
+
+  function syncMediaMetadata(next: Track | null) {
+    if (!("mediaSession" in navigator)) return;
+
+    if (!next) {
+      navigator.mediaSession.metadata = null;
+      return;
+    }
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: next.title || next.file,
+      artist: next.artist || FALLBACK_ARTIST,
+      album: next.author || "thuni.fish",
+      artwork: [
+        { src: "/avatar.jpg", sizes: "300x300", type: "image/jpeg" },
+      ],
+    });
+  }
+
+  function setPlaying(nextPlaying: boolean) {
+    playing = nextPlaying;
+    player!.dataset.playing = nextPlaying ? "true" : "false";
+    pauseButton!.dataset.playing = nextPlaying ? "true" : "false";
     pauseButton!.setAttribute(
       "aria-label",
-      playing ? "Pausar música" : "Continuar música",
+      nextPlaying ? "Pausar música" : "Continuar música",
     );
-    pauseButton!.title = playing ? "Pausar música" : "Continuar música";
+    pauseButton!.title = nextPlaying ? "Pausar música" : "Continuar música";
+
+    if (nextPlaying) statusOverride = null;
+    renderStatus();
+
+    if ("mediaSession" in navigator) {
+      navigator.mediaSession.playbackState = nextPlaying ? "playing" : "paused";
+    }
+  }
+
+  function paintProgress(percent: number) {
+    const safePercent = Math.min(Math.max(percent, 0), 100);
+    progress!.value = String(safePercent);
+    progress!.style.setProperty(
+      "--player-progress",
+      `${safePercent.toFixed(2)}%`,
+    );
+  }
+
+  function setTimeLabels(current: number, duration: number) {
+    timeCurrent!.textContent = formatTime(current);
+    timeDuration!.textContent = formatTime(duration);
+    progress!.setAttribute(
+      "aria-valuetext",
+      `${formatTime(current)} de ${formatTime(duration)}`,
+    );
+  }
+
+  function resetProgress() {
+    isSeeking = false;
+    paintProgress(0);
+    setTimeLabels(0, 0);
+  }
+
+  function syncProgress() {
+    if (isSeeking || !audio) return;
+
+    const duration = audio.duration;
+    const current = audio.currentTime;
+
+    if (!Number.isFinite(duration) || duration <= 0) {
+      paintProgress(0);
+      setTimeLabels(current, 0);
+      return;
+    }
+
+    paintProgress((current / duration) * 100);
+    setTimeLabels(current, duration);
+    syncMediaPosition();
   }
 
   function applyTrack(next: Track | null) {
     track = next;
     const hasTrack = Boolean(next);
+
     trackTitle!.textContent =
       next?.title || next?.file || "sem música por enquanto";
     trackArtist!.textContent =
       next?.artist ||
       (sounds.length === 0
         ? "adiciona sons em sounds/sounds.json pra começa a ouvi :3"
-        : "artista misterioso");
+        : FALLBACK_ARTIST);
     trackInfo!.disabled = !hasTrack;
     pauseButton!.disabled = !hasTrack;
+    nextButton!.disabled = !hasTrack;
+    progress!.disabled = !hasTrack;
+
+    statusOverride = null;
+    renderStatus();
+    if (!next) resetProgress();
 
     creditTitle!.textContent = next?.title || next?.file || "—";
-    creditArtist!.textContent = next?.artist || "artista misterioso";
+    creditArtist!.textContent = next?.artist || FALLBACK_ARTIST;
     creditAuthor!.textContent = next?.author || next?.artist || "não informado";
     creditCopyright!.textContent =
       next?.copyright || "© todos os direitos pertencem ao autor.";
@@ -132,6 +282,8 @@ function init() {
       creditSource!.hidden = true;
       creditSource!.removeAttribute("href");
     }
+
+    syncMediaMetadata(next);
   }
 
   function getNextTrack(excludeFile?: string | null): Track | null {
@@ -150,72 +302,54 @@ function init() {
 
   function startTrack(next: Track | null) {
     if (!next) {
-      audio?.pause();
-      audio = null;
+      audio!.pause();
+      audio!.removeAttribute("src");
+      audio!.load();
       lastPlayedFile = null;
       applyTrack(null);
       setPlaying(false);
       return;
     }
 
-    audio?.pause();
-    const nextAudio = new Audio(`/sounds/${next.file}`);
-    nextAudio.volume = 0.42;
-    nextAudio.preload = "auto";
-    nextAudio.onended = () => {
-      audio = null;
-      setPlaying(false);
-
-      if (sounds.length <= 1) {
-        applyTrack(next);
-        return;
-      }
-
-      const followingTrack = getNextTrack(next.file);
-      if (followingTrack) {
-        startTrack(followingTrack);
-      } else {
-        applyTrack(null);
-      }
-    };
-    nextAudio.onerror = () => {
-      audio = null;
-      setPlaying(false);
-
-      if (sounds.length <= 1) {
-        applyTrack(next);
-        return;
-      }
-
-      const fallbackTrack = getNextTrack(next.file);
-      if (fallbackTrack) {
-        startTrack(fallbackTrack);
-      } else {
-        applyTrack(null);
-      }
-    };
-
-    audio = nextAudio;
+    audio!.pause();
     lastPlayedFile = next.file;
+    audio!.loop = sounds.length <= 1;
+    audio!.src = `/sounds/${encodeURIComponent(next.file)}`;
+    audio!.volume = 0.42;
     applyTrack(next);
-    nextAudio
-      .play()
-      .then(() => setPlaying(true))
-      .catch(() => {
-        setPlaying(false);
-      });
+    setPlaying(false);
+    resetProgress();
+
+    audio!.play().catch(() => {
+      setPlaying(false);
+    });
   }
 
-  function playRandom() {
-    const next = getNextTrack(lastPlayedFile);
-    startTrack(next);
+  function playNext() {
+    if (sounds.length === 0) return;
+
+    const followingTrack = getNextTrack(lastPlayedFile);
+    startTrack(followingTrack);
   }
 
   async function onEnter() {
-    if (entered) return;
+    if (entering || entered) return;
+
+    entering = true;
+    statusOverride = "a procurar música...";
+    renderStatus();
+
     await ready;
-    playRandom();
+
     entered = true;
+    statusOverride = null;
+
+    if (sounds.length > 0) {
+      playNext();
+    } else {
+      applyTrack(null);
+    }
+
     enterScreen!.classList.add("is-hidden");
     main!.removeAttribute("aria-hidden");
     main!.removeAttribute("inert");
@@ -235,28 +369,133 @@ function init() {
     enterScreen.remove();
   });
 
-  pauseButton.addEventListener("click", () => {
-    if (!audio) return;
-    if (audio.paused) {
-      audio
-        .play()
-        .then(() => setPlaying(true))
-        .catch(() => setPlaying(false));
+  audio.addEventListener("play", () => {
+    if (track) setPlaying(true);
+  });
+
+  audio.addEventListener("pause", () => {
+    setPlaying(false);
+  });
+
+  audio.addEventListener("timeupdate", syncProgress);
+  audio.addEventListener("durationchange", syncProgress);
+  audio.addEventListener("loadedmetadata", syncProgress);
+
+  audio.addEventListener("ended", () => {
+    if (!track || sounds.length <= 1) return;
+
+    const followingTrack = getNextTrack(track.file);
+    if (followingTrack) {
+      startTrack(followingTrack);
     } else {
-      audio.pause();
-      setPlaying(false);
+      applyTrack(null);
     }
   });
 
-  trackInfo.addEventListener("click", () => {
+  audio.addEventListener("error", () => {
     if (!track) return;
-    dialog.showModal();
+
+    statusOverride = "não consegui tocar essa música :(";
+    audio.pause();
+    setPlaying(false);
   });
 
-  closeDialog.addEventListener("click", () => dialog.close());
+  pauseButton.addEventListener("click", () => {
+    if (!track) return;
+
+    if (audio.paused) {
+      audio.play().catch(() => setPlaying(false));
+    } else {
+      audio.pause();
+    }
+  });
+
+  nextButton.addEventListener("click", () => {
+    playNext();
+  });
+
+  progress.addEventListener("pointerdown", () => {
+    isSeeking = true;
+  });
+
+  progress.addEventListener("input", () => {
+    if (!track) return;
+
+    isSeeking = true;
+    const percent = Number(progress.value);
+    paintProgress(percent);
+
+    const duration = audio.duration;
+    if (!Number.isFinite(duration) || duration <= 0) return;
+
+    const target = (percent / 100) * duration;
+    audio.currentTime = target;
+    setTimeLabels(target, duration);
+  });
+
+  function finishSeeking() {
+    isSeeking = false;
+    syncProgress();
+  }
+
+  progress.addEventListener("change", finishSeeking);
+  progress.addEventListener("pointerup", finishSeeking);
+  progress.addEventListener("keyup", finishSeeking);
+  progress.addEventListener("blur", finishSeeking);
+
+  function openDialog() {
+    if (!track) return;
+
+    if (dialogCloseTimer !== null) {
+      window.clearTimeout(dialogCloseTimer);
+      dialogCloseTimer = null;
+    }
+
+    dialogClosing = false;
+    dialog!.classList.remove("is-closing");
+
+    if (!dialog!.open) dialog!.showModal();
+  }
+
+  function closeDialogAnimated() {
+    if (!dialog!.open || dialogClosing) return;
+
+    if (dialogCloseDelay === 0) {
+      dialog!.close();
+      return;
+    }
+
+    dialogClosing = true;
+    dialog!.classList.add("is-closing");
+
+    dialogCloseTimer = window.setTimeout(() => {
+      dialog!.classList.remove("is-closing");
+      dialog!.close();
+      dialogClosing = false;
+      dialogCloseTimer = null;
+    }, dialogCloseDelay);
+  }
+
+  dialog.addEventListener("close", () => {
+    if (dialogCloseTimer !== null) {
+      window.clearTimeout(dialogCloseTimer);
+      dialogCloseTimer = null;
+    }
+    dialog.classList.remove("is-closing");
+    dialogClosing = false;
+  });
+
+  dialog.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    closeDialogAnimated();
+  });
+
+  trackInfo.addEventListener("click", openDialog);
+
+  closeDialog.addEventListener("click", closeDialogAnimated);
 
   dialog.addEventListener("click", (event) => {
-    if (event.target === dialog) dialog.close();
+    if (event.target === dialog) closeDialogAnimated();
   });
 
   fishButton.addEventListener("click", () => {
@@ -269,8 +508,32 @@ function init() {
     portrait?.classList.add("is-broken");
   });
 
+  if ("mediaSession" in navigator) {
+    const setHandler = (
+      action: MediaSessionAction,
+      handler: MediaSessionActionHandler | null,
+    ) => {
+      try {
+        navigator.mediaSession.setActionHandler(action, handler);
+      } catch {
+        // Ação não suportada neste navegador.
+      }
+    };
+
+    setHandler("play", () => {
+      audio.play().catch(() => setPlaying(false));
+    });
+    setHandler("pause", () => audio.pause());
+    setHandler("nexttrack", () => playNext());
+    setHandler("seekto", (details) => {
+      if (details.seekTime == null) return;
+      audio.currentTime = details.seekTime;
+      syncProgress();
+    });
+  }
+
   applyTrack(null);
-  window.addEventListener("pagehide", () => audio?.pause());
+  window.addEventListener("pagehide", () => audio.pause());
 }
 
 init();

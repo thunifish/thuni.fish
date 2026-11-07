@@ -1,201 +1,29 @@
 ---
-import { Icon } from "astro-icon/components";
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import { LINKS } from "@/data/links";
+import Layout from "@/layouts/layout.astro";
+import Enter from "@/components/enter.astro";
+import Mast from "@/components/mast.astro";
+import Intro from "@/components/intro.astro";
+import Player from "@/components/player.astro";
+import Info from "@/components/info.astro";
+import Fish from "@/components/fish.astro";
+import Footer from "@/components/footer.astro";
+import Dialog from "@/components/dialog.astro";
 ---
 
-<BaseLayout>
-  <div class="enter-screen" data-enter-screen role="dialog" aria-modal="true" aria-labelledby="enter-title">
-    <button class="enter-button" type="button" data-enter>
-      <span class="enter-mark" aria-hidden="true">✦</span>
-      <small id="enter-title">click!</small>
-    </button>
-  </div>
-
+<Layout>
+  <Enter />
   <main class="container" data-main aria-hidden="true" inert>
     <section class="hero" aria-label="perfil do thom">
-      <div class="mast">
-          <img
-            src="/avatar.jpg"
-            alt="avatar do thom"
-            class="avatar"
-            width="300"
-            height="300"
-            data-avatar
-          />
-        <section class="links-section" aria-labelledby="links-title">
-          <h2 id="links-title">meus links!</h2>
-          <nav class="links" aria-label="redes sociais">
-            {
-              LINKS.map((link) => (
-                <a
-                  class="link-card"
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={link.label}
-                >
-                  <Icon name={link.icon} class="brand-icon" aria-hidden="true" />
-                </a>
-              ))
-            }
-          </nav>
-        </section>
-      </div>
-
+      <Mast />
       <div class="profile-stack">
-        <div class="profile-copy">
-          <h1>Thom<span> !</span></h1>
-          <p class="display-name">@thunifish</p>
-          <p class="identity">
-            he / him · 16y · INFP-T
-            <br />
-            portuguese, english · portugal
-          </p>
-          <div class="tiny-rule" aria-hidden="true"></div>
-          <p class="bio-note">
-            <strong>note!</strong>
-            leva a maioria das piadas literalmente (especialmente online). se eu disser algo
-            ofensivo, me educa e fala comigo.
-          </p>
-        </div>
-
-        <div class="hero-side">
-          <section class="now-playing" aria-live="polite" aria-label="Música a tocar">
-           <p class="track-quote"><Icon style=" align-items: center; vertical-align: middle;
-"name="andrsrxn:music-notes" /> tocando agora...</p>
-            <button
-              class="track-info-button"
-              type="button"
-              data-track-info
-              disabled
-              aria-haspopup="dialog"
-            >
-              <span class="track-title" data-track-title>sem música por enquanto</span>
-              <span class="track-artist" data-track-artist
-                >adiciona sons em sounds/sounds.json pra começa a ouvi :3</span
-              >
-            </button>
-            <button
-              class="pause-button"
-              type="button"
-              data-pause
-              disabled
-              data-playing="false"
-              aria-label="Continuar música"
-              title="Continuar música"
-            >
-              <Icon name="andrsrxn:pause" class="icon-pause" />
-              <Icon name="andrsrxn:play" class="icon-play" /> 
-            </button>
-          </section>
-        </div>
+        <Intro />
+        <Player />
       </div>
     </section>
-
-    <section class="info-grid" aria-label="informações pessoais">
-      <article class="info-card">
-        <h2>Lorem! <span>{"(๑>◡<๑)"}</span></h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent
-          libero. Sed cursus ante dapibus diam.
-        </p>
-        <div class="thumb-row" aria-hidden="true">
-          <span>✦</span>
-          <span>♡</span>
-        </div>
-      </article>
-      <article class="info-card">
-        <h2>Ipsum! <span>(− ᴗ −)</span></h2>
-        <p>
-          Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris.
-          Fusce nec tellus sed augue semper porta.
-        </p>
-        <div class="thumb-row" aria-hidden="true">
-          <span>×</span>
-          <span>☁</span>
-        </div>
-      </article>
-      <article class="info-card">
-        <h2>Dolor!</h2>
-        <p>
-          Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora
-          torquent per conubia nostra, per inceptos himenaeos.
-        </p>
-        <div class="thumb-row" aria-hidden="true">
-          <span>◌</span>
-          <span>✧</span>
-        </div>
-      </article>
-      <article class="info-card">
-        <h2>Amet!</h2>
-        <p>
-          Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque
-          nibh. Aenean quam.
-        </p>
-        <div class="thumb-row" aria-hidden="true">
-          <span>⊘</span>
-          <span>!</span>
-        </div>
-      </article>
-      <article class="info-card">
-        <h2>Music!</h2>
-        <p>
-          <strong>Lorem</strong> ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus ante
-          dapibus diam. Nulla quis sem at nibh elementum imperdiet.
-        </p>
-      </article>
-      <article class="info-card">
-        <h2>Favs!</h2>
-        <p>
-          Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
-          porttitor eu, consequat vitae, eleifend ac, enim.
-        </p>
-      </article>
-    </section>
-
-    <button class="fish" type="button" aria-label="girar o peixe" data-fish>
-      <span data-fish-emoji>🐟</span>
-    </button>
-    <footer>
-      <small>
-        ( lorem ipsum ) ·{" "}
-        <a href="https://github.com/thunifish/www" target="_blank" rel="noopener noreferrer">
-          lorem ipsum ↗
-        </a>
-      </small>
-    </footer>
+    <Info />
+    <Fish />
+    <Footer />
   </main>
-
-  <dialog class="track-dialog" data-track-dialog aria-labelledby="credit-title">
-    <div class="dialog-top">
-      <p class="now-playing-label">créditos da música</p>
-      <button class="close-dialog" type="button" aria-label="Fechar créditos" data-close-dialog>
-        ×
-      </button>
-    </div>
-    <h2 id="credit-title" data-credit-title>—</h2>
-    <p class="credit-artist" data-credit-artist>artista misterioso</p>
-    <dl class="credit-list">
-      <div>
-        <dt>autor / artista</dt>
-        <dd data-credit-author>não informado</dd>
-      </div>
-      <div>
-        <dt>uso</dt>
-        <dd data-credit-copyright>© todos os direitos pertencem ao autor.</dd>
-      </div>
-    </dl>
-    <a
-      class="source-link"
-      data-credit-source
-      hidden
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      ver música original ↗
-    </a>
-  </dialog>
-
+  <Dialog />
   <script src="../scripts/site.ts"></script>
-</BaseLayout>
+</Layout>

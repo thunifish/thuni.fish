@@ -1,0 +1,23 @@
+---
+import { Icon } from "astro-icon/components";
+import { LINKS } from "@/data/links";
+---
+
+<section class="links-section" aria-labelledby="links-title">
+  <h2 id="links-title">meus links!</h2>
+  <nav class="links" aria-label="redes sociais">
+    {
+      LINKS.map((link) => (
+        <a
+          class="link-card"
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={link.label}
+        >
+          <Icon name={link.icon} class="brand-icon" aria-hidden="true" />
+        </a>
+      ))
+    }
+  </nav>
+</section>

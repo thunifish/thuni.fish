@@ -1,0 +1,41 @@
+---
+import type { InfoCardData } from "@/data/info";
+
+type Props = InfoCardData;
+
+const { title, face, lead, text, thumbs = [] } = Astro.props;
+---
+
+<article class="info-card">
+  <h2>
+    {title}
+    {face && <span>{face}</span>}
+  </h2>
+  <p>
+    {
+      lead ? (
+        <>
+          <strong>{lead}</strong> {text}
+        </>
+      ) : (
+        text
+      )
+    }
+  </p>
+  {
+    thumbs.length > 0 && (
+      <div class="thumb-row">
+        {thumbs.map((thumb) => (
+          <img
+            class="thumb-image"
+            src={thumb.src}
+            alt={thumb.alt ?? ""}
+            width="52"
+            height="52"
+            loading="lazy"
+          />
+        ))}
+      </div>
+    )
+  }
+</article>
