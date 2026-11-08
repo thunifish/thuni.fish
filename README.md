@@ -71,11 +71,11 @@ o projeto usa o **[Bun](https://bun.sh)** (eh mais rápido), mas dá pra usar o 
 
 ## 🌐 rodar online
 
-o site é estático e pode ser hospedado na [Vercel](https://vercel.com) (ou em qualquer lugar que sirva arquivos estáticos).
+esse site é estático e pode ser hospedado na [Cloudflare Pages](https://pages.cloudflare.com) (ou em qualquer lugar que sirva arquivos estáticos, como a vercel a netlify).
 
 <p>
-  <a href="https://vercel.com/new/clone?repository-url=https://github.com/thunifish/www">
-    <img src="https://vercel.com/button" alt="Deploy with Vercel" />
+  <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/thunifish/www">
+    <img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare"/>
   </a>
 </p>
 
