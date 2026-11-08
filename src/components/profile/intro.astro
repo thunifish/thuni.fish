@@ -1,6 +1,7 @@
 ---
 import Flags from "@/components/profile/flags.astro";
 import { SITE } from "@/config";
+import { t } from "@/i18n";
 ---
 
 <div class="w-full px-1 pt-2 text-center desktop:pt-0 desktop:text-left">
@@ -9,9 +10,9 @@ import { SITE } from "@/config";
   </h1>
   <p class="mb-4 text-xl font-medium">{SITE.handle}</p>
   <p class="mb-4 text-base leading-[1.45]">
-    ele / dele · 16y · INFP-T
+    <span data-i18n="intro.pronouns">{t("intro.pronouns")}</span>
     <br />
-    português e inglês
+    <span data-i18n="intro.languages">{t("intro.languages")}</span>
   </p>
   <div class="mb-4 flex justify-center desktop:justify-start">
     <Flags />
@@ -20,8 +21,16 @@ import { SITE } from "@/config";
     class="mx-auto mb-3 h-px w-[min(210px,70%)] bg-line desktop:mx-0"
     aria-hidden="true"
   ></div>
-  <h2 class="mb-2 font-display text-[22px] tracking-[-0.06em]">nota!</h2>
-  <p class="mx-auto mb-0 max-w-[420px] border-l-2 border-line pl-3 text-base leading-[1.4] desktop:mx-0">
-    oii!! :)
+  <h2
+    class="mb-2 font-display text-[22px] tracking-[-0.06em]"
+    data-i18n="intro.note"
+  >
+    {t("intro.note")}
+  </h2>
+  <p
+    class="mx-auto mb-0 max-w-[420px] border-l-2 border-line pl-3 text-base leading-[1.4] desktop:mx-0"
+    data-i18n="intro.greeting"
+  >
+    {t("intro.greeting")}
   </p>
 </div>

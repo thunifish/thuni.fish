@@ -1,0 +1,43 @@
+---
+import { Icon } from "astro-icon/components";
+import { t } from "@/i18n";
+---
+
+<div
+  class="flex items-center gap-1 text-[11px] leading-none text-muted"
+  role="group"
+  aria-label={t("lang.group")}
+  data-i18n-aria-label="lang.group"
+  data-lang-switch
+>
+  <Icon
+    name="andrsrxn:translate"
+    class="size-3.5 opacity-50"
+    aria-hidden="true"
+  />
+  <button
+    class="rounded-sm px-0.5 font-medium uppercase opacity-50 transition-opacity duration-150 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink aria-pressed:font-bold aria-pressed:opacity-100"
+    type="button"
+    data-lang="pt"
+    aria-pressed="true"
+    aria-label={t("lang.pt")}
+    data-i18n-aria-label="lang.pt"
+    title="pt"
+  >
+    pt
+  </button>
+  <span class="opacity-30" aria-hidden="true">
+    /
+  </span>
+  <button
+    class="rounded-sm px-0.5 font-medium uppercase opacity-50 transition-opacity duration-150 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink aria-pressed:font-bold aria-pressed:opacity-100"
+    type="button"
+    data-lang="en"
+    aria-pressed="false"
+    aria-label={t("lang.en")}
+    data-i18n-aria-label="lang.en"
+    title="en"
+  >
+    en
+  </button>
+</div>

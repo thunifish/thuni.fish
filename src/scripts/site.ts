@@ -1,4 +1,5 @@
 import { PLAYER, SITE } from "@/config";
+import { onLocaleChange, t } from "@/i18n";
 
 type Track = {
   file: string;
@@ -9,7 +10,7 @@ type Track = {
   source?: string;
 };
 
-const FALLBACK_ARTIST = PLAYER.fallbackArtist;
+type StatusOverride = "loading" | "error" | null;
 
 function isTrack(value: unknown): value is Track {
   return (
@@ -112,7 +113,7 @@ function init() {
   let playing = false;
   let isSeeking = false;
   let lastPlayedFile: string | null = null;
-  let statusOverride: string | null = null;
+  let statusOverride: StatusOverride = null;
   let ready: Promise<void> = Promise.resolve();
   let dialogClosing = false;
   let dialogCloseTimer: number | null = null;
@@ -137,17 +138,24 @@ function init() {
     });
 
   function renderStatus() {
-    if (statusOverride) {
-      playerStatus!.textContent = statusOverride;
+    if (statusOverride === "loading") {
+      playerStatus!.textContent = t("player.loading");
+      return;
+    }
+
+    if (statusOverride === "error") {
+      playerStatus!.textContent = t("player.error");
       return;
     }
 
     if (!track) {
-      playerStatus!.textContent = "sem música por enquanto";
+      playerStatus!.textContent = t("player.empty");
       return;
     }
 
-    playerStatus!.textContent = playing ? "tocando agora..." : "em pausa";
+    playerStatus!.textContent = playing
+      ? t("player.playing")
+      : t("player.paused");
   }
 
   function syncMediaPosition() {
@@ -184,7 +192,7 @@ function init() {
 
     navigator.mediaSession.metadata = new MediaMetadata({
       title: next.title || next.file,
-      artist: next.artist || FALLBACK_ARTIST,
+      artist: next.artist || t("player.fallbackArtist"),
       album: next.author || SITE.name,
       artwork: artworkSrc
         ? [{ src: artworkSrc, sizes: artworkSize, type: "image/webp" }]
@@ -192,15 +200,17 @@ function init() {
     });
   }
 
+  function syncPauseLabel() {
+    const label = playing ? t("player.pause") : t("player.resume");
+    pauseButton!.setAttribute("aria-label", label);
+    pauseButton!.title = label;
+  }
+
   function setPlaying(nextPlaying: boolean) {
     playing = nextPlaying;
     player!.dataset.playing = nextPlaying ? "true" : "false";
     pauseButton!.dataset.playing = nextPlaying ? "true" : "false";
-    pauseButton!.setAttribute(
-      "aria-label",
-      nextPlaying ? "Pausar música" : "Continuar música",
-    );
-    pauseButton!.title = nextPlaying ? "Pausar música" : "Continuar música";
+    syncPauseLabel();
 
     if (nextPlaying) statusOverride = null;
     renderStatus();
@@ -224,7 +234,10 @@ function init() {
     timeDuration!.textContent = formatTime(duration);
     progress!.setAttribute(
       "aria-valuetext",
-      `${formatTime(current)} de ${formatTime(duration)}`,
+      t("player.timeValue", {
+        current: formatTime(current),
+        duration: formatTime(duration),
+      }),
     );
   }
 
@@ -251,17 +264,47 @@ function init() {
     syncMediaPosition();
   }
 
+  function playlistHint() {
+    return t("player.addSongs", {
+      path: PLAYER.playlist.replace(/^\//, ""),
+    });
+  }
+
+  function renderTrack() {
+    const next = track;
+
+    trackTitle!.textContent = next?.title || next?.file || t("player.empty");
+    trackArtist!.textContent =
+      next?.artist ||
+      (sounds.length === 0 ? playlistHint() : t("player.fallbackArtist"));
+
+    creditTitle!.textContent = next?.title || next?.file || "—";
+    creditArtist!.textContent = next?.artist || t("player.fallbackArtist");
+    creditAuthor!.textContent =
+      next?.author || next?.artist || t("player.dialog.unknown");
+    creditCopyright!.textContent =
+      next?.copyright || t("player.dialog.copyright");
+
+    if (next?.source) {
+      const sourceLink = document.createElement("a");
+      sourceLink.className = "inline-block underline underline-offset-[3px]";
+      sourceLink.href = next.source;
+      sourceLink.target = "_blank";
+      sourceLink.rel = "noopener noreferrer";
+      sourceLink.textContent = t("player.dialog.source");
+
+      creditSourceSlot!.replaceChildren(sourceLink);
+      creditSourceSlot!.hidden = false;
+    } else {
+      creditSourceSlot!.replaceChildren();
+      creditSourceSlot!.hidden = true;
+    }
+  }
+
   function applyTrack(next: Track | null) {
     track = next;
     const hasTrack = Boolean(next);
 
-    trackTitle!.textContent =
-      next?.title || next?.file || "sem música por enquanto";
-    trackArtist!.textContent =
-      next?.artist ||
-      (sounds.length === 0
-        ? `adiciona sons em ${PLAYER.playlist.replace(/^\//, "")} pra começa a ouvi :3`
-        : FALLBACK_ARTIST);
     trackInfo!.disabled = !hasTrack;
     pauseButton!.disabled = !hasTrack;
     nextButton!.disabled = !hasTrack;
@@ -271,27 +314,7 @@ function init() {
     renderStatus();
     if (!next) resetProgress();
 
-    creditTitle!.textContent = next?.title || next?.file || "—";
-    creditArtist!.textContent = next?.artist || FALLBACK_ARTIST;
-    creditAuthor!.textContent = next?.author || next?.artist || "não informado";
-    creditCopyright!.textContent =
-      next?.copyright || "© todos os direitos pertencem ao autor.";
-
-    if (next?.source) {
-      const sourceLink = document.createElement("a");
-      sourceLink.className = "inline-block underline underline-offset-[3px]";
-      sourceLink.href = next.source;
-      sourceLink.target = "_blank";
-      sourceLink.rel = "noopener noreferrer";
-      sourceLink.textContent = "ver música original ↗";
-
-      creditSourceSlot!.replaceChildren(sourceLink);
-      creditSourceSlot!.hidden = false;
-    } else {
-      creditSourceSlot!.replaceChildren();
-      creditSourceSlot!.hidden = true;
-    }
-
+    renderTrack();
     syncMediaMetadata(next);
   }
 
@@ -345,7 +368,7 @@ function init() {
     if (entering || entered) return;
 
     entering = true;
-    statusOverride = "a procurar música...";
+    statusOverride = "loading";
     renderStatus();
 
     await ready;
@@ -404,7 +427,7 @@ function init() {
   audio.addEventListener("error", () => {
     if (!track) return;
 
-    statusOverride = "não consegui tocar essa música :(";
+    statusOverride = "error";
     audio.pause();
     setPlaying(false);
   });
@@ -534,6 +557,17 @@ function init() {
       syncProgress();
     });
   }
+
+  onLocaleChange(() => {
+    syncPauseLabel();
+    renderStatus();
+    renderTrack();
+    syncMediaMetadata(track);
+    setTimeLabels(
+      audio.currentTime,
+      Number.isFinite(audio.duration) ? audio.duration : 0,
+    );
+  });
 
   applyTrack(null);
   window.addEventListener("pagehide", () => audio.pause());
