@@ -2,12 +2,14 @@
 import { Image } from "astro:assets";
 import avatar from "@/assets/avatar.png";
 import Links from "@/components/profile/links.astro";
+import { t } from "@/i18n";
 ---
 
 <div class="flex w-full flex-col items-center gap-3 desktop:gap-4">
   <Image
     src={avatar}
-    alt="avatar do thom"
+    alt={t("profile.avatarAlt")}
+    data-i18n-alt="profile.avatarAlt"
     class="block size-[20em] scale-[0.86] rounded-full border-2 border-line object-cover object-center"
     width={276}
     height={276}

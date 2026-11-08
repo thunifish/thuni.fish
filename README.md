@@ -25,6 +25,7 @@ site feito com:
 ### ✨ recursos
 
 - 🌗 toggle de tema claro e escuro (ele tmb vê pelo dispositivo)
+- 🌐 site em português e inglês (detecta o idioma do navegador, com toggle no rodapé)
 - 🎵 player de música com créditos
 - 🃏 cards de perfil
 - 🗺️ página 404 legal
@@ -87,6 +88,7 @@ esse site é estático e pode ser hospedado na [Cloudflare Pages](https://pages.
 src/
 ├── components/  # componentes (perfil, player, ui)
 ├── data/        # dados estáticos (links, textos)
+├── i18n/        # traduções e troca de idioma (pt/en)
 ├── layouts/     # base das páginas
 ├── pages/       # rotas (home, 404)
 ├── scripts/     # lógica client-side (tema, player, peixe)

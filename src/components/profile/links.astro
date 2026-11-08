@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import { LINKS } from "@/data/links";
+import { t } from "@/i18n";
 
 interface Props {
   id?: string;
@@ -13,12 +14,14 @@ const { id = "links-title" } = Astro.props;
   <h2
     id={id}
     class="mb-2 text-center font-display text-[22px] tracking-[-0.06em]"
+    data-i18n="links.title"
   >
-    meus links!
+    {t("links.title")}
   </h2>
   <nav
     class="flex flex-wrap justify-center gap-x-1 gap-y-0.5"
-    aria-label="redes sociais e e-mail"
+    aria-label={t("links.navLabel")}
+    data-i18n-aria-label="links.navLabel"
   >
     {LINKS.map((link) => (
       <a
@@ -26,7 +29,8 @@ const { id = "links-title" } = Astro.props;
         href={link.href}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={link.label}
+        aria-label={t(link.labelKey)}
+        data-i18n-aria-label={link.labelKey}
       >
         <Icon
           name={link.icon}
@@ -38,8 +42,10 @@ const { id = "links-title" } = Astro.props;
     <button
       class="grid size-11 place-items-center text-ink no-underline transition-[transform,color] duration-[160ms] hover:-translate-y-[3px] hover:scale-[1.06] hover:text-muted hover:outline-none focus-visible:-translate-y-[3px] focus-visible:scale-[1.06] focus-visible:text-muted focus-visible:outline-none active:-translate-y-px active:scale-[0.98]"
       type="button"
-      aria-label="me mandar um e-mail"
-      title="e-mail"
+      aria-label={t("links.email")}
+      data-i18n-aria-label="links.email"
+      title={t("links.emailTitle")}
+      data-i18n-title="links.emailTitle"
       data-email
     >
       <Icon

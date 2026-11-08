@@ -1,11 +1,13 @@
 ---
 import Card from "@/components/profile/card.astro";
 import { INFO_CARDS } from "@/data/info";
+import { t } from "@/i18n";
 ---
 
 <section
   class="mt-[34px] grid grid-cols-1 gap-y-[26px] text-center max-[400px]:gap-y-[22px] desktop:mt-12 desktop:grid-cols-2 desktop:gap-x-12 desktop:gap-y-9 desktop:text-left"
-  aria-label="informações pessoais"
+  aria-label={t("info.label")}
+  data-i18n-aria-label="info.label"
 >
   {INFO_CARDS.map((card) => (
     <Card {...card} />

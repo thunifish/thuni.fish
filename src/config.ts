@@ -8,7 +8,7 @@ export const SITE = {
   alternateNames: ["thom", "thuni"],
   lang: "pt-BR",
   locale: "pt_BR",
-  languages: ["pt-BR"],
+  languages: ["pt-BR", "en"],
   image: "/og.png",
   imageAlt: "cantigo do thom na internet (≧◡≦)",
   twitter: {
@@ -28,6 +28,5 @@ export const THEME = {
 export const PLAYER = {
   playlist: "/sounds/sounds.json",
   soundsPath: "/sounds/",
-  fallbackArtist: "artista misterioso",
   volume: 0.3,
 } as const;
