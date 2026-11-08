@@ -9,9 +9,11 @@ import Links from "@/components/links.astro";
     src={avatar}
     alt="avatar do thom"
     class="block size-[20em] scale-[0.86] rounded-full border-2 border-line object-cover object-center"
-    width={460}
-    height={460}
+    width={276}
+    height={276}
+    densities={[1, 2]}
     loading="eager"
+    fetchpriority="high"
     data-avatar
   />
   <div class="hidden w-full desktop:block">

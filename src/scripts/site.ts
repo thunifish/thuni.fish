@@ -1,5 +1,3 @@
-import avatarUrl from "../assets/avatar.png?url";
-
 type Track = {
   file: string;
   title?: string;
@@ -250,11 +248,19 @@ function init() {
       return;
     }
 
+    const artworkSrc = avatar?.currentSrc || avatar?.src;
+    const artworkSize =
+      avatar?.naturalWidth && avatar?.naturalHeight
+        ? `${avatar.naturalWidth}x${avatar.naturalHeight}`
+        : "460x460";
+
     navigator.mediaSession.metadata = new MediaMetadata({
       title: next.title || next.file,
       artist: next.artist || FALLBACK_ARTIST,
       album: next.author || "thuni.fish",
-      artwork: [{ src: avatarUrl, sizes: "460x460", type: "image/jpeg" }],
+      artwork: artworkSrc
+        ? [{ src: artworkSrc, sizes: artworkSize, type: "image/webp" }]
+        : [],
     });
   }
 

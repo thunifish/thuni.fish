@@ -1,6 +1,7 @@
 ---
-import portugal from "@/assets/flags/portugal.webp?url";
-import pan from "@/assets/flags/pan.png?url";
+import { Image } from "astro:assets";
+import portugal from "@/assets/flags/portugal.webp";
+import pan from "@/assets/flags/pan.png";
 
 const FLAGS = [
   { src: portugal, alt: "bandeira de Portugal" },
@@ -11,15 +12,12 @@ const FLAGS = [
 <ul class="m-0 flex list-none items-center gap-2 p-0" aria-label="bandeiras">
   {FLAGS.map((flag, index) => (
     <li class="m-0">
-      <img
-        class:list={[
-          "block h-6 w-9 rounded-md border border-line object-cover transition-transform duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-0.5 hover:scale-105",
-          index === 0 ? "-rotate-2" : "rotate-2",
-        ]}
+      <Image
+        class={`block h-6 w-9 rounded-md border border-line object-cover transition-transform duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-0.5 hover:scale-105 ${index === 0 ? "-rotate-2" : "rotate-2"}`}
         src={flag.src}
         alt={flag.alt}
-        width={36}
-        height={24}
+        width={72}
+        height={48}
         loading="lazy"
       />
     </li>
