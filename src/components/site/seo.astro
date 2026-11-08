@@ -1,0 +1,90 @@
+---
+import { SITE } from "@/config";
+import { LINKS } from "@/data/links";
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: "website" | "profile" | "article";
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  image = SITE.image,
+  type = "website",
+  noindex = false,
+} = Astro.props;
+
+const site = Astro.site ?? new URL(SITE.url);
+const canonical = new URL(Astro.url.pathname, site);
+const ogImage = new URL(image, site);
+const sameAs = LINKS.map((link) => link.href);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${site.origin}/#website`,
+      url: `${site.origin}/`,
+      name: SITE.name,
+      description,
+      inLanguage: SITE.lang,
+    },
+    {
+      "@type": "Person",
+      "@id": `${site.origin}/#person`,
+      name: SITE.author,
+      alternateName: SITE.alternateNames,
+      url: `${site.origin}/`,
+      image: ogImage.href,
+      sameAs,
+      knowsLanguage: SITE.languages,
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": `${canonical.href}#page`,
+      url: canonical.href,
+      name: title,
+      isPartOf: { "@id": `${site.origin}/#website` },
+      mainEntity: { "@id": `${site.origin}/#person` },
+      inLanguage: SITE.lang,
+    },
+  ],
+};
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="author" content={SITE.author} />
+<meta
+  name="robots"
+  content={
+    noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large"
+  }
+/>
+<link rel="canonical" href={canonical.href} />
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical.href} />
+<meta property="og:image" content={ogImage.href} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={SITE.imageAlt} />
+<meta property="og:locale" content={SITE.locale} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content={SITE.twitter.site} />
+<meta name="twitter:creator" content={SITE.twitter.creator} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage.href} />
+<meta name="twitter:image:alt" content={SITE.imageAlt} />
+
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />

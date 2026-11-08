@@ -1,4 +1,6 @@
 ---
+import { PLAYER } from "@/config";
+
 interface Props {
   title?: string;
   artist?: string;
@@ -9,7 +11,7 @@ interface Props {
 
 const {
   title = "—",
-  artist = "artista misterioso",
+  artist = PLAYER.fallbackArtist,
   author = "não informado",
   copyright = "© todos os direitos pertencem ao autor.",
   source,

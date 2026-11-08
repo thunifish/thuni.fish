@@ -1,13 +1,13 @@
 import { defineConfig } from "astro/config";
 import icon from "astro-icon";
+import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
+
 export default defineConfig({
-  integrations: [icon()],
+  site: "https://thuni.fish",
+  integrations: [icon(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
-  },
-  image: {
-    remotePatterns: [{ protocol: "https", hostname: "placehold.co" }],
   },
 });

@@ -1,6 +1,9 @@
 ---
 import SpeedInsights from "@vercel/speed-insights/astro";
-import ThemeToggle from "@/components/theme.astro";
+import Seo from "@/components/site/seo.astro";
+import ThemeToggle from "@/components/site/theme.astro";
+import { SITE, THEME } from "@/config";
+import Favicon from "@playform/favicon/Favicon";
 import "@/styles/global.css";
 
 interface Props {
@@ -8,25 +11,18 @@ interface Props {
   description?: string;
 }
 
-const {
-  title = "thuni.fish",
-  description = "um cantinho do thom na internet",
-} = Astro.props;
+const { title = SITE.title, description = SITE.description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="pt-BR">
+<html lang={SITE.lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="author" content="thom" />
-    <meta name="theme-color" content="#fafafa" />
+    <Seo title={title} description={description} />
+    <meta name="theme-color" content={THEME.colors.light} />
     <meta name="color-scheme" content="light dark" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <Favicon />
   </head>
   <body>
     <SpeedInsights />

@@ -26,7 +26,7 @@ export const INFO_CARDS: InfoCardData[] = [
   {
     title: "animes",
     face: "(˶ˆᗜˆ˵)",
-    text: "hanako-kun, evangelion, sasaki to miyano, lain, tshd, bsd",
+    text: "hanako-kun, evangelion, sasaki to miyano, nakamura-kun, given, silent voice, doukyuusei lain, tshd, bsd",
     thumbs: [
       { src: t1, alt: "Hanako-Kun" },
       { src: t2, alt: "Kaworu Nagisa" },
@@ -35,7 +35,7 @@ export const INFO_CARDS: InfoCardData[] = [
   {
     title: "música",
     face: "(„• ֊ •„)",
-    text: "cavetown, tv girl, yonlu, femtanyl, lil peep, alex g, olivia rodrigo",
+    text: "cavetown, tv girl, yonlu, femtanyl, lil peep, sabrina carpinter, chico buarque, olivia rodrigo, wave to earth",
     thumbs: [
       { src: t3, alt: "Basil" },
       { src: t4, alt: "Miyano" },
@@ -44,19 +44,19 @@ export const INFO_CARDS: InfoCardData[] = [
   {
     title: "gosto:",
     face: "(˶ᵔ ᵕ ᵔ˶)",
-    text: "chuva, hístoria, ouvir música, falar com amigos, escrever, coisas de tecnologia, assistir séries, andar de bicicleta, ver coisas fofas e dormir",
+    text: "minha gata, sol, estudar, hístoria, ouvir música, falar com amigos, escrever,  tecnologia, assistir séries, andar de bicicleta, e dormir",
     thumbs: [
-      { src: t5, alt: "Mafuyu" },
-      { src: t6, alt: "Yoshiki" },
+      { src: t7, alt: "Hirose" },
+      { src: t8, alt: "Ranpo" },
     ],
   },
   {
     title: "não gosto",
     face: "૮(◞ ‸ ◟ )ა",
-    text: "chorar, pessoas rudes, ficar sozinho, mto barulho, matemática, homofobia, racismo",
+    text: "chorar, chuva, pessoas secas, ficar sozinho, mto barulho, matemática, ficar entediado, preconceito",
     thumbs: [
-      { src: t7, alt: "Hirose" },
-      { src: t8, alt: "Ranpo" },
+      { src: t5, alt: "Mafuyu" },
+      { src: t6, alt: "Yoshiki" },
     ],
   },
 ];

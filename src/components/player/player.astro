@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import { PLAYER } from "@/config";
 ---
 
 <div class="w-[min(100%,420px)] desktop:w-[min(100%,360px)]">
@@ -39,7 +40,7 @@ import { Icon } from "astro-icon/components";
         class="overflow-hidden text-xs text-ellipsis whitespace-nowrap text-muted"
         data-track-artist
       >
-        adiciona sons em sounds/sounds.json pra começa a ouvi :3
+        adiciona sons em {PLAYER.playlist.replace(/^\//, "")} pra começa a ouvi :3
       </span>
     </button>
     <div class="flex items-center gap-2">

@@ -1,3 +1,5 @@
+import { PLAYER, SITE, THEME } from "@/config";
+
 type Track = {
   file: string;
   title?: string;
@@ -7,13 +9,10 @@ type Track = {
   source?: string;
 };
 
-const FALLBACK_ARTIST = "artista misterioso";
+const FALLBACK_ARTIST = PLAYER.fallbackArtist;
 
-const THEME_KEY = "theme";
-const THEME_COLORS = {
-  light: "#fafafa",
-  dark: "#0e0e0d",
-} as const;
+const THEME_KEY = THEME.key;
+const THEME_COLORS = THEME.colors;
 
 type Theme = keyof typeof THEME_COLORS;
 
@@ -196,7 +195,7 @@ function init() {
 
   enterButton.focus();
 
-  ready = fetch("/sounds/sounds.json", { cache: "no-store" })
+  ready = fetch(PLAYER.playlist, { cache: "no-store" })
     .then((response) => {
       if (!response.ok) throw new Error("sem playlist");
       return response.json() as Promise<unknown>;
@@ -257,7 +256,7 @@ function init() {
     navigator.mediaSession.metadata = new MediaMetadata({
       title: next.title || next.file,
       artist: next.artist || FALLBACK_ARTIST,
-      album: next.author || "thuni.fish",
+      album: next.author || SITE.name,
       artwork: artworkSrc
         ? [{ src: artworkSrc, sizes: artworkSize, type: "image/webp" }]
         : [],
@@ -332,7 +331,7 @@ function init() {
     trackArtist!.textContent =
       next?.artist ||
       (sounds.length === 0
-        ? "adiciona sons em sounds/sounds.json pra começa a ouvi :3"
+        ? `adiciona sons em ${PLAYER.playlist.replace(/^\//, "")} pra começa a ouvi :3`
         : FALLBACK_ARTIST);
     trackInfo!.disabled = !hasTrack;
     pauseButton!.disabled = !hasTrack;
@@ -388,8 +387,8 @@ function init() {
     audio!.pause();
     lastPlayedFile = next.file;
     audio!.loop = sounds.length <= 1;
-    audio!.src = `/sounds/${encodeURIComponent(next.file)}`;
-    audio!.volume = 0.42;
+    audio!.src = `${PLAYER.soundsPath}${encodeURIComponent(next.file)}`;
+    audio!.volume = PLAYER.volume;
     applyTrack(next);
     setPlaying(false);
     resetProgress();
