@@ -1,47 +1,53 @@
+import type { MessageKey } from "@/i18n";
+
 export const LINKS = [
   {
     icon: "simple-icons:x",
     href: "https://x.com/thunifish",
-    label: "Twitter do Thom",
+    labelKey: "links.twitter",
   },
   {
     icon: "simple-icons:instagram",
     href: "https://instagram.com/thunifish",
-    label: "Instagram do Thom",
+    labelKey: "links.instagram",
   },
   {
     icon: "simple-icons:tiktok",
     href: "https://tiktok.com/@thunifish",
-    label: "TikTok do Thom",
+    labelKey: "links.tiktok",
   },
   {
     icon: "simple-icons:spotify",
     href: "https://open.spotify.com/user/317hs76ivw45qyu4bt34uhdfzv4i",
-    label: "Spotify do Thom",
+    labelKey: "links.spotify",
   },
   {
     icon: "simple-icons:pinterest",
     href: "https://pinterest.com/thunifish/",
-    label: "Pinterest do Thom",
+    labelKey: "links.pinterest",
   },
   {
     icon: "simple-icons:roblox",
     href: "https://www.roblox.com/pt/users/11477824674/profile",
-    label: "Roblox do Thom",
+    labelKey: "links.roblox",
   },
   {
     icon: "simple-icons:anilist",
     href: "https://anilist.co/user/thuni/",
-    label: "Anilist do Thom",
+    labelKey: "links.anilist",
   },
   {
     icon: "simple-icons:steam",
     href: "https://steamcommunity.com/id/thunifish/",
-    label: "Steam do Thom",
+    labelKey: "links.steam",
   },
   {
     icon: "simple-icons:github",
     href: "https://github.com/thunifish/",
-    label: "GitHub do Thom",
+    labelKey: "links.github",
   },
-] as const;
+] as const satisfies ReadonlyArray<{
+  icon: string;
+  href: string;
+  labelKey: MessageKey;
+}>;

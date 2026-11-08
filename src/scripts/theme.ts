@@ -1,4 +1,5 @@
 import { THEME } from "@/config";
+import { onLocaleChange, t } from "@/i18n";
 
 type Theme = keyof typeof THEME.colors;
 
@@ -39,12 +40,13 @@ export function initTheme(): void {
 
   const syncLabel = () => {
     if (!toggle) return;
-    toggle.setAttribute(
-      "aria-label",
-      root.classList.contains("dark")
-        ? "Ativar tema claro"
-        : "Ativar tema escuro",
-    );
+
+    const label = root.classList.contains("dark")
+      ? t("theme.light")
+      : t("theme.dark");
+
+    toggle.setAttribute("aria-label", label);
+    toggle.title = t("theme.toggle");
   };
 
   const stored = getStoredTheme();
@@ -63,4 +65,6 @@ export function initTheme(): void {
     apply(event.matches ? "dark" : "light");
     syncLabel();
   });
+
+  onLocaleChange(syncLabel);
 }

@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import cute from "@/assets/cute.png";
+import { t } from "@/i18n";
 ---
 
 <div
@@ -17,7 +18,8 @@ import cute from "@/assets/cute.png";
   >
     <Image
       src={cute}
-      alt="Gato fofo"
+      alt={t("enter.imageAlt")}
+      data-i18n-alt="enter.imageAlt"
       class="size-40 object-contain desktop:size-48"
       width={385}
       height={385}
@@ -25,8 +27,12 @@ import cute from "@/assets/cute.png";
       loading="eager"
       fetchpriority="high"
     />
-    <small id="enter-title" class="font-display tracking-[-0.04em]">
-      (clica aqui!)
+    <small
+      id="enter-title"
+      class="font-display tracking-[-0.04em]"
+      data-i18n="enter.click"
+    >
+      {t("enter.click")}
     </small>
   </button>
 </div>

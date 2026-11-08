@@ -1,13 +1,23 @@
-<footer class="mt-1 text-xs text-muted">
+---
+import Lang from "@/components/site/lang.astro";
+import { t } from "@/i18n";
+---
+
+<footer class="mt-1 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs text-muted">
   <small>
-    o site é open source! ·{" "}
+    <span data-i18n="footer.openSource">{t("footer.openSource")}</span> ·{" "}
     <a
       class="underline underline-offset-[3px]"
       href="https://github.com/thunifish/www"
       target="_blank"
       rel="noopener noreferrer"
+      data-i18n="footer.viewCode"
     >
-      veja o codigo ↗
+      {t("footer.viewCode")}
     </a>
   </small>
+  <span class="opacity-40" aria-hidden="true">
+    ·
+  </span>
+  <Lang />
 </footer>

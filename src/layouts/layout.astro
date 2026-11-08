@@ -20,7 +20,7 @@ const {
 ---
 
 <!doctype html>
-<html lang={SITE.lang}>
+<html lang={SITE.lang} data-locale="pt">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -57,8 +57,10 @@ const {
     <script>
       import { initEmail } from "@/scripts/fun";
       import { initFish } from "@/scripts/fish";
+      import { initI18n } from "@/i18n";
       import { initTheme } from "@/scripts/theme";
 
+      initI18n();
       initTheme();
       initFish();
       initEmail();

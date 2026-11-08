@@ -2,20 +2,26 @@
 import { Image } from "astro:assets";
 import portugal from "@/assets/flags/portugal.webp";
 import pan from "@/assets/flags/pan.png";
+import { t, type MessageKey } from "@/i18n";
 
-const FLAGS = [
-  { src: portugal, alt: "bandeira de Portugal" },
-  { src: pan, alt: "bandeira pan" },
+const FLAGS: { src: typeof portugal; altKey: MessageKey }[] = [
+  { src: portugal, altKey: "flags.portugal" },
+  { src: pan, altKey: "flags.pan" },
 ];
 ---
 
-<ul class="m-0 flex list-none items-center gap-2 p-0" aria-label="bandeiras">
+<ul
+  class="m-0 flex list-none items-center gap-2 p-0"
+  aria-label={t("flags.label")}
+  data-i18n-aria-label="flags.label"
+>
   {FLAGS.map((flag, index) => (
     <li class="m-0">
       <Image
         class={`block h-6 w-9 rounded-md border border-line object-cover transition-transform duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-0.5 hover:scale-105 ${index === 0 ? "-rotate-2" : "rotate-2"}`}
         src={flag.src}
-        alt={flag.alt}
+        alt={t(flag.altKey)}
+        data-i18n-alt={flag.altKey}
         width={72}
         height={48}
         loading="lazy"
