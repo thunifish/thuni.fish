@@ -2,6 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Sniglet&display=swap");
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-paper: #fafafa;
   --color-ink: #111111;
@@ -13,6 +15,26 @@
   --breakpoint-desktop: 780px;
   --animate-equalizer: equalizer-bounce 0.85s ease-in-out infinite alternate;
   --animate-fish-spin: fish-spin 0.5s ease;
+}
+
+html.dark {
+  --color-paper: #0e0e0d;
+  --color-ink: #f3f3f1;
+  --color-muted: #989896;
+  --color-soft: #1b1b19;
+  --color-line: #2a2a27;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light) {
+    --color-paper: #0e0e0d;
+    --color-ink: #f3f3f1;
+    --color-muted: #989896;
+    --color-soft: #1b1b19;
+    --color-line: #2a2a27;
+    color-scheme: dark;
+  }
 }
 
 @layer base {
@@ -31,6 +53,9 @@
     font-size: 1rem;
     line-height: 1.45;
     text-align: center;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease;
   }
 
   @media (min-width: 780px) {
@@ -83,14 +108,15 @@
     background: linear-gradient(
       to right,
       var(--color-ink) 0 var(--player-progress),
-      rgb(17 17 17 / 14%) var(--player-progress) 100%
+      color-mix(in srgb, var(--color-ink) 14%, transparent)
+        var(--player-progress) 100%
     );
   }
 
   &::-moz-range-track {
     height: 4px;
     border-radius: 999px;
-    background: rgb(17 17 17 / 14%);
+    background: color-mix(in srgb, var(--color-ink) 14%, transparent);
   }
 
   &::-moz-range-progress {

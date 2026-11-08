@@ -1,0 +1,22 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<button
+  class="fixed top-4 right-4 z-20 grid size-10 place-items-center rounded-full border border-line bg-paper text-ink shadow-[0_2px_10px_rgb(0_0_0_/_0.08)] transition-[background-color,color,transform] duration-150 hover:scale-105 hover:bg-ink hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink active:scale-95"
+  type="button"
+  data-theme-toggle
+  aria-label="Ativar tema escuro"
+  title="Alternar tema"
+>
+  <Icon
+    name="andrsrxn:moon"
+    class="block size-5 dark:hidden"
+    aria-hidden="true"
+  />
+  <Icon
+    name="andrsrxn:sun"
+    class="hidden size-5 dark:block"
+    aria-hidden="true"
+  />
+</button>

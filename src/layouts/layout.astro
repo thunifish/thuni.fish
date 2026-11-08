@@ -1,5 +1,6 @@
 ---
 import SpeedInsights from "@vercel/speed-insights/astro";
+import ThemeToggle from "@/components/theme.astro";
 import "@/styles/global.css";
 
 interface Props {
@@ -22,7 +23,7 @@ const {
     <meta name="description" content={description} />
     <meta name="author" content="thom" />
     <meta name="theme-color" content="#fafafa" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -32,6 +33,7 @@ const {
   </head>
   <body>
     <SpeedInsights />
+    <ThemeToggle />
     <slot />
   </body>
 </html>
