@@ -1,5 +1,4 @@
 ---
-import SpeedInsights from "@vercel/speed-insights/astro";
 import Seo from "@/components/site/seo.astro";
 import ThemeToggle from "@/components/site/theme.astro";
 import { SITE, THEME } from "@/config";
@@ -53,7 +52,6 @@ const {
     />
   </head>
   <body>
-    <SpeedInsights />
     <ThemeToggle />
     <slot />
     <script>
