@@ -3,7 +3,6 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 import Seo from "@/components/site/seo.astro";
 import ThemeToggle from "@/components/site/theme.astro";
 import { SITE, THEME } from "@/config";
-import Favicon from "@playform/favicon/Favicon";
 import "@/styles/global.css";
 
 interface Props {
@@ -22,7 +21,6 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     <Seo title={title} description={description} />
     <meta name="theme-color" content={THEME.colors.light} />
     <meta name="color-scheme" content="light dark" />
-    <Favicon />
   </head>
   <body>
     <SpeedInsights />
