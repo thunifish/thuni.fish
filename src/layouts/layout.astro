@@ -57,11 +57,13 @@ const {
     <ThemeToggle />
     <slot />
     <script>
-      import { initTheme } from "@/scripts/theme";
+      import { initEmail } from "@/scripts/fun";
       import { initFish } from "@/scripts/fish";
+      import { initTheme } from "@/scripts/theme";
 
       initTheme();
       initFish();
+      initEmail();
     </script>
   </body>
 </html>

@@ -102,7 +102,6 @@ src/
 > [!IMPORTANT]  
 > você pode modificar o site como quiser, mas remova as minhas informações!! (pff)
 
-
 <p align="center">
   <sub>feito com ♥ por thom!! :3</sub>
 </p>

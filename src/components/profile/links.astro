@@ -18,7 +18,7 @@ const { id = "links-title" } = Astro.props;
   </h2>
   <nav
     class="flex flex-wrap justify-center gap-x-1 gap-y-0.5"
-    aria-label="redes sociais"
+    aria-label="redes sociais e e-mail"
   >
     {LINKS.map((link) => (
       <a
@@ -35,5 +35,18 @@ const { id = "links-title" } = Astro.props;
         />
       </a>
     ))}
+    <button
+      class="grid size-11 place-items-center text-ink no-underline transition-[transform,color] duration-[160ms] hover:-translate-y-[3px] hover:scale-[1.06] hover:text-muted hover:outline-none focus-visible:-translate-y-[3px] focus-visible:scale-[1.06] focus-visible:text-muted focus-visible:outline-none active:-translate-y-px active:scale-[0.98]"
+      type="button"
+      aria-label="me mandar um e-mail"
+      title="e-mail"
+      data-email
+    >
+      <Icon
+        name="andrsrxn:mail"
+        class="block size-[1.55rem] text-current"
+        aria-hidden="true"
+      />
+    </button>
   </nav>
 </section>
