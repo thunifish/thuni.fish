@@ -8,9 +8,16 @@ import "@/styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  canonical?: string;
+  noindex?: boolean;
 }
 
-const { title = SITE.title, description = SITE.description } = Astro.props;
+const {
+  title = SITE.title,
+  description = SITE.description,
+  canonical,
+  noindex = false,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -18,10 +25,15 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <Seo title={title} description={description} />
+    <Seo
+      title={title}
+      description={description}
+      canonical={canonical}
+      noindex={noindex}
+    />
     <meta name="theme-color" content={THEME.colors.light} />
     <meta name="color-scheme" content="light dark" />
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -44,5 +56,12 @@ const { title = SITE.title, description = SITE.description } = Astro.props;
     <SpeedInsights />
     <ThemeToggle />
     <slot />
+    <script>
+      import { initTheme } from "@/scripts/theme";
+      import { initFish } from "@/scripts/fish";
+
+      initTheme();
+      initFish();
+    </script>
   </body>
 </html>

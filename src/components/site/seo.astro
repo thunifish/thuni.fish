@@ -6,6 +6,7 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  canonical?: string;
   type?: "website" | "profile" | "article";
   noindex?: boolean;
 }
@@ -14,12 +15,13 @@ const {
   title,
   description,
   image = SITE.image,
+  canonical: canonicalPath,
   type = "website",
   noindex = false,
 } = Astro.props;
 
 const site = Astro.site ?? new URL(SITE.url);
-const canonical = new URL(Astro.url.pathname, site);
+const canonical = new URL(canonicalPath ?? Astro.url.pathname, site);
 const ogImage = new URL(image, site);
 const sameAs = LINKS.map((link) => link.href);
 
@@ -86,5 +88,9 @@ const structuredData = {
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage.href} />
 <meta name="twitter:image:alt" content={SITE.imageAlt} />
-
-<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+{!noindex && (
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(structuredData)}
+  />
+)}

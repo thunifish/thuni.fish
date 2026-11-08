@@ -1,4 +1,4 @@
-import { PLAYER, SITE, THEME } from "@/config";
+import { PLAYER, SITE } from "@/config";
 
 type Track = {
   file: string;
@@ -10,73 +10,6 @@ type Track = {
 };
 
 const FALLBACK_ARTIST = PLAYER.fallbackArtist;
-
-const THEME_KEY = THEME.key;
-const THEME_COLORS = THEME.colors;
-
-type Theme = keyof typeof THEME_COLORS;
-
-function getStoredTheme(): Theme | null {
-  try {
-    const value = localStorage.getItem(THEME_KEY);
-    return value === "light" || value === "dark" ? value : null;
-  } catch {
-    return null;
-  }
-}
-
-function setStoredTheme(theme: Theme): void {
-  try {
-    localStorage.setItem(THEME_KEY, theme);
-  } catch {}
-}
-
-function initTheme(): void {
-  const root = document.documentElement;
-  const meta = document.querySelector<HTMLMetaElement>(
-    'meta[name="theme-color"]',
-  );
-  const media = window.matchMedia("(prefers-color-scheme: dark)");
-  const toggle = document.querySelector<HTMLButtonElement>(
-    "[data-theme-toggle]",
-  );
-
-  const apply = (theme: Theme) => {
-    const dark = theme === "dark";
-    root.classList.toggle("dark", dark);
-    root.classList.toggle("light", !dark);
-    meta?.setAttribute("content", THEME_COLORS[theme]);
-  };
-
-  const syncLabel = () => {
-    if (!toggle) return;
-    toggle.setAttribute(
-      "aria-label",
-      root.classList.contains("dark")
-        ? "Ativar tema claro"
-        : "Ativar tema escuro",
-    );
-  };
-
-  const stored = getStoredTheme();
-  apply(stored ?? (media.matches ? "dark" : "light"));
-  syncLabel();
-
-  toggle?.addEventListener("click", () => {
-    const next: Theme = root.classList.contains("dark") ? "light" : "dark";
-    apply(next);
-    setStoredTheme(next);
-    syncLabel();
-  });
-
-  media.addEventListener("change", (event) => {
-    if (getStoredTheme()) return;
-    apply(event.matches ? "dark" : "light");
-    syncLabel();
-  });
-}
-
-initTheme();
 
 function isTrack(value: unknown): value is Track {
   return (
@@ -124,8 +57,6 @@ function init() {
   const timeDuration = document.querySelector<HTMLElement>(
     "[data-time-duration]",
   );
-  const fishButton = document.querySelector<HTMLButtonElement>("[data-fish]");
-  const fishEmoji = document.querySelector<HTMLElement>("[data-fish-emoji]");
   const dialog = document.querySelector<HTMLDialogElement>(
     "[data-track-dialog]",
   );
@@ -163,8 +94,6 @@ function init() {
     !progress ||
     !timeCurrent ||
     !timeDuration ||
-    !fishButton ||
-    !fishEmoji ||
     !dialog ||
     !creditTitle ||
     !creditArtist ||
@@ -569,12 +498,6 @@ function init() {
 
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) closeDialogAnimated();
-  });
-
-  fishButton.addEventListener("click", () => {
-    fishEmoji.removeAttribute("data-spinning");
-    void fishEmoji.offsetWidth;
-    fishEmoji.dataset.spinning = "true";
   });
 
   avatar?.addEventListener("error", () => {

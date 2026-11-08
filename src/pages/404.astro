@@ -1,0 +1,37 @@
+---
+import Layout from "@/layouts/layout.astro";
+import Fish from "@/components/ui/fish.astro";
+import Footer from "@/components/site/footer.astro";
+---
+
+<Layout title="404" description="a página não existe" canonical="/" noindex>
+  <main class="mx-auto flex w-[min(100%,520px)] flex-col items-center pt-4 desktop:pt-12">
+    <div class="relative flex flex-col items-center" aria-hidden="true">
+      <p class="font-display text-[clamp(84px,26vw,132px)] leading-[0.75] font-bold tracking-[-0.1em]">
+        4
+        <span class="inline-block -translate-y-[0.06em] rotate-[6deg] text-muted">
+          0
+        </span>
+        4
+      </p>
+      <span class="absolute top-10 -right-2 rotate-[8deg] rounded-full border-2 border-line bg-paper px-3 py-0.5 font-display text-sm shadow-[2px_2px_0_var(--color-line)]">
+        ops!
+      </span>
+    </div>
+
+    <h1 class="mt-8 font-display text-[clamp(26px,7vw,34px)] leading-none font-bold tracking-[-0.06em]">
+      perdeu o caminho?
+    </h1>
+    <p class="mt-3 mb-0 max-w-[380px] border-l-2 border-line pl-3 text-left text-base leading-[1.4]">
+      essa página não existe.. :(
+    </p>
+
+    <a
+      class="mt-7 inline-flex items-center gap-2 rounded-full border-2 border-line bg-paper px-5 py-2 font-display text-[17px] text-ink no-underline transition-[transform,box-shadow] duration-150 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-0.5 hover:shadow-[5px_5px_0_var(--color-line)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink active:translate-y-px active:shadow-[2px_2px_0_var(--color-line)]"
+      href="/"
+    >
+      <span aria-hidden="true">←</span> voltar pro início
+    </a>
+    <Fish />
+  </main>
+</Layout>
