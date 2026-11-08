@@ -1,9 +1,44 @@
 [
   {
-    "file": "starry-flowes.mp3",
+    "file": "starry-flowers.mp3",
     "title": "Starry Flowers",
     "artist": "Nomnomnami",
-    "copyright": "© Nomnomnami",
+    "copyright": "Nomnomnami",
     "source": "https://www.youtube.com/watch?v=2IT1P6IGTTk"
+  },
+  {
+    "file": "crossroads.mp3",
+    "title": "OMORI OST - 163 Crossroads",
+    "artist": "OMOCAT",
+    "copyright": "OMOCAT",
+    "source": "https://www.youtube.com/watch?v=5s-1dej9Gsc"
+  },
+  {
+    "file": "puddles.mp3",
+    "title": "OMORI OST - 068 Puddles",
+    "artist": "OMOCAT",
+    "copyright": "OMOCAT",
+    "source": "https://www.youtube.com/watch?v=_46DK9y5J5o"
+  },
+  {
+    "file": "a-home-for-flowers-empty.mp3",
+    "title": "OMORI OST - 062 A Home For Flowers (Empty)",
+    "artist": "OMOCAT",
+    "copyright": "OMOCAT",
+    "source": "https://www.youtube.com/watch?v=LjyToU14TBM"
+  },
+  {
+    "file": "you-can-always-come-home.mp3",
+    "title": "You Can Always Come Home (DELTARUNE Chapter 1 Soundtrack)",
+    "artist": "Toby Fox",
+    "copyright": "Tobyx Fox",
+    "source": "https://www.youtube.com/watch?v=Jm3AM-sAbmA"
+  },
+  {
+    "file": "snowy.mp3",
+    "title": "Snowy (Undertale Soundtrack)",
+    "artist": "Toby Fox",
+    "copyright": "Tobyx Fox",
+    "source": "https://www.youtube.com/watch?v=QZ1Jp-Wg7b0"
   }
 ]
