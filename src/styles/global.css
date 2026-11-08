@@ -1,4 +1,6 @@
 @import "@fontsource/sniglet/latin-400.css";
+@import "@fontsource/comic-relief/latin-400.css";
+
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -9,8 +11,8 @@
   --color-muted: #777777;
   --color-soft: #eeeeec;
   --color-line: #191919;
-  --font-sans: "Comic Sans MS", Arial, sans-serif;
-  --font-display: "Sniglet", sans-serif;
+  --font-sans: "Comic Sans MS", "Comic Relief", Arial, sans-serif;
+  --font-display: "Sniglet", Arial, sans-serif;
   --breakpoint-desktop: 780px;
   --animate-equalizer: equalizer-bounce 0.85s ease-in-out infinite alternate;
   --animate-fish-spin: fish-spin 0.5s ease;

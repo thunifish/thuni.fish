@@ -5,6 +5,8 @@
     "": {
       "name": "thuni-fish",
       "dependencies": {
+        "@fontsource/comic-neue": "^5.3.0",
+        "@fontsource/comic-relief": "^5.3.0",
         "@fontsource/sniglet": "^5.3.0",
         "@iconify-json/andrsrxn": "^1.2.3",
         "@tailwindcss/vite": "^4.3.5",
@@ -122,6 +124,10 @@
     "@emnapi/runtime": ["@emnapi/runtime@1.11.3", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-Xz4Tpyki7XyrpbUK1jR1AhdAdaXyhhY4lZ3neLodmhpuWfy2PAQN5B46sAiU4liOXGLkHypn/qU+jvfWSCYYLA=="],
 
     "@emnapi/wasi-threads": ["@emnapi/wasi-threads@1.2.3", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-ELEBe8PsLvvJ6QMr0zLt8ffvOHW/dc1m3CEzNMg7aJUv3bMaoDtw2TXyDAwkYBuroxxuHEwhRTLJSe5sya547g=="],
+
+    "@fontsource/comic-neue": ["@fontsource/comic-neue@5.3.0", "", {}, "sha512-uZsyUTExw8tCySNhL65dN6rEUhASMPGintSS5Kw/ZkrQTK1vcAgramzOLT/mZKtZ+EXr03MHj0s5osVVJITCow=="],
+
+    "@fontsource/comic-relief": ["@fontsource/comic-relief@5.3.0", "", {}, "sha512-MC00QAh/tMpwmdcQwcaDfUQg28izTrmj3UfjAzTL8OeZKuVhlwLN21KH2MbRNJ8BjD08alVTPaUUB6Z19PtRWw=="],
 
     "@fontsource/sniglet": ["@fontsource/sniglet@5.3.0", "", {}, "sha512-HTLIdOv503BhrUPOIb8WZfRRQkk2sl9FYV4pkYlCc5kpSJJ6omEeQ+24egbRLTWOOl4iI0FeeDoW/vu5KEP4vg=="],
 
