@@ -6,7 +6,6 @@ interface Props {
   artist?: string;
   author?: string;
   copyright?: string;
-  source?: string;
 }
 
 const {
@@ -14,7 +13,6 @@ const {
   artist = PLAYER.fallbackArtist,
   author = "não informado",
   copyright = "© todos os direitos pertencem ao autor.",
-  source,
 } = Astro.props;
 ---
 
@@ -58,14 +56,5 @@ const {
       </dd>
     </div>
   </dl>
-  <a
-    class="mt-[18px] inline-block underline underline-offset-[3px]"
-    data-credit-source
-    href={source}
-    hidden={!source}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    ver música original ↗
-  </a>
+  <div class="mt-[18px]" data-credit-source-slot hidden></div>
 </dialog>

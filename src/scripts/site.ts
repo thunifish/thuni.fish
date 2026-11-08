@@ -72,8 +72,8 @@ function init() {
   const creditCopyright = document.querySelector<HTMLElement>(
     "[data-credit-copyright]",
   );
-  const creditSource = document.querySelector<HTMLAnchorElement>(
-    "[data-credit-source]",
+  const creditSourceSlot = document.querySelector<HTMLElement>(
+    "[data-credit-source-slot]",
   );
   const closeDialog = document.querySelector<HTMLButtonElement>(
     "[data-close-dialog]",
@@ -99,7 +99,7 @@ function init() {
     !creditArtist ||
     !creditAuthor ||
     !creditCopyright ||
-    !creditSource ||
+    !creditSourceSlot ||
     !closeDialog
   ) {
     return;
@@ -278,11 +278,18 @@ function init() {
       next?.copyright || "© todos os direitos pertencem ao autor.";
 
     if (next?.source) {
-      creditSource!.hidden = false;
-      creditSource!.href = next.source;
+      const sourceLink = document.createElement("a");
+      sourceLink.className = "inline-block underline underline-offset-[3px]";
+      sourceLink.href = next.source;
+      sourceLink.target = "_blank";
+      sourceLink.rel = "noopener noreferrer";
+      sourceLink.textContent = "ver música original ↗";
+
+      creditSourceSlot!.replaceChildren(sourceLink);
+      creditSourceSlot!.hidden = false;
     } else {
-      creditSource!.hidden = true;
-      creditSource!.removeAttribute("href");
+      creditSourceSlot!.replaceChildren();
+      creditSourceSlot!.hidden = true;
     }
 
     syncMediaMetadata(next);
