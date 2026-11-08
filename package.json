@@ -22,6 +22,6 @@
     "@iconify-json/simple-icons": "^1.2.101",
     "prettier": "3.9.10",
     "prettier-plugin-astro": "1.1.2",
-    "typescript": "^5.7.0"
+    "typescript": "^5.9.3"
   }
 }
