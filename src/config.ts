@@ -2,7 +2,7 @@ export const SITE = {
   name: "thuni.fish",
   url: "https://thuni.fish",
   title: "thom",
-  description: "cantigo do thom na internet (≧◡≦)",
+  description: "cantinho do thom na internet (≧◡≦)",
   author: "thom",
   handle: "@thunifish",
   alternateNames: ["thom", "thuni"],
@@ -10,7 +10,7 @@ export const SITE = {
   locale: "pt_BR",
   languages: ["pt-BR"],
   image: "/og.png",
-  imageAlt: "cantigo do thom na internet (≧◡≦)",
+  imageAlt: "cantinho do thom na internet (≧◡≦)",
   twitter: {
     site: "@thunifish",
     creator: "@thunifish",
