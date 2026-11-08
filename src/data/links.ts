@@ -6,12 +6,12 @@ export const LINKS = [
   },
   {
     icon: "simple-icons:instagram",
-    href: "https://instagram.com/thuni.fish",
+    href: "https://instagram.com/thunifish",
     label: "Instagram do Thom",
   },
   {
     icon: "simple-icons:tiktok",
-    href: "https://tiktok.com/@thuni.fish",
+    href: "https://tiktok.com/@thunifish",
     label: "TikTok do Thom",
   },
   {

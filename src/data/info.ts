@@ -24,46 +24,39 @@ export type InfoCardData = {
 
 export const INFO_CARDS: InfoCardData[] = [
   {
-    title: "Lorem!",
-    face: "(๑>◡<๑)",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.",
+    title: "animes",
+    face: "(˶ˆᗜˆ˵)",
+    text: "hanako-kun, evangelion, sasaki to miyano, lain, tshd, bsd",
     thumbs: [
       { src: t1, alt: "Hanako-Kun" },
       { src: t2, alt: "Kaworu Nagisa" },
     ],
   },
   {
-    title: "Ipsum!",
-    face: "(− ᴗ −)",
-    text: "Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.",
+    title: "música",
+    face: "(„• ֊ •„)",
+    text: "cavetown, tv girl, yonlu, femtanyl, lil peep, alex g, olivia rodrigo",
     thumbs: [
       { src: t3, alt: "Basil" },
       { src: t4, alt: "Miyano" },
     ],
   },
   {
-    title: "Dolor!",
-    text: "Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+    title: "gosto:",
+    face: "(˶ᵔ ᵕ ᵔ˶)",
+    text: "chuva, hístoria, ouvir música, falar com amigos, escrever, coisas de tecnologia, assistir séries, andar de bicicleta, ver coisas fofas e dormir",
     thumbs: [
       { src: t5, alt: "Mafuyu" },
       { src: t6, alt: "Yoshiki" },
     ],
   },
   {
-    title: "Amet!",
-    text: "Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam.",
+    title: "não gosto",
+    face: "૮(◞ ‸ ◟ )ა",
+    text: "chorar, pessoas rudes, ficar sozinho, mto barulho, matemática, homofobia, racismo",
     thumbs: [
       { src: t7, alt: "Hirose" },
       { src: t8, alt: "Ranpo" },
     ],
-  },
-  {
-    title: "Music!",
-    lead: "Lorem",
-    text: "ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus ante dapibus diam. Nulla quis sem at nibh elementum imperdiet.",
-  },
-  {
-    title: "Favs!",
-    text: "Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.",
   },
 ];

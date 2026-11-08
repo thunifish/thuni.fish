@@ -1,7 +1,5 @@
 {
-  "name": "thuni-fish",
-  "private": true,
-  "type": "module",
+  "name": "thuni",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
